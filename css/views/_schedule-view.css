@@ -1,0 +1,102 @@
+/* css/views/_schedule-view.css */
+
+.week-card {
+  margin-top: var(--space-3);
+  overflow: hidden;
+}
+
+.week-card h3 {
+  padding: var(--space-2) var(--space-3);
+  margin: 0;
+  font-size: 1.125rem;
+  background-color: #c7ddff;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.schedule-table th,
+.schedule-table td {
+  border: 1px solid var(--color-border);
+  text-align: center;
+  vertical-align: middle;
+}
+
+.schedule-table th {
+  font-weight: 600;
+  padding: var(--space-1);
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.schedule-table .agent-cell {
+  width: 160px;
+  text-align: left;
+  padding-left: var(--space-2);
+  font-weight: 600;
+}
+
+.shift-cell {
+  height: 50px;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+.shift-cell:hover {
+  background-color: var(--color-background-hover);
+}
+.day-off-month {
+  background-color: var(--color-bg-table-header);
+  opacity: 0.6;
+}
+
+.turno-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: var(--color-text-light);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Estilo para los iconos de permisos y licencias en el cuadrante */
+.turno-icon.shift-permiso {
+  background-color: #8e44ad; /* Un color morado, por ejemplo */
+  color: white;
+}
+
+/* ✅ REGLAS DE COLOR FINALES Y COMPLETAS */
+.shift-M {
+  background-color: var(--shift-M-bg);
+}
+.shift-T {
+  background-color: var(--shift-T-bg);
+}
+.shift-N {
+  background-color: var(--shift-N-bg);
+}
+.shift-L {
+  background-color: var(--shift-L-bg);
+}
+.shift-V {
+  background-color: var(--shift-V-bg);
+}
+.shift-P {
+  background-color: var(--shift-P-bg);
+}
+.shift-B {
+  background-color: var(--shift-B-bg);
+}
+.shift-AP {
+  background-color: var(--shift-AP-bg);
+}
+.shift-- {
+  background-color: var(--color-bg-table-header);
+  color: var(--color-text-secondary);
+}

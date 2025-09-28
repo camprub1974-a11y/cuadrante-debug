@@ -1,0 +1,120 @@
+/* css/views/_cuadrante-view.css */
+
+.quadrant-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Permite que los elementos se muevan a la siguiente línea en pantallas pequeñas */
+  gap: var(--space-3); /* Espacio entre los grupos de la izquierda y la derecha */
+  align-items: flex-start;
+}
+
+.month-navigation {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.month-title-container {
+  display: flex;
+  gap: var(--space-1);
+}
+
+/* Ajustamos el ancho de los selectores de fecha */
+.month-selector {
+  min-width: 150px;
+}
+.year-selector {
+  min-width: 100px;
+}
+
+.view-actions {
+  display: flex;
+  align-items: flex-start; /* Alinea la etiqueta "Ver Agente" con la base del selector */
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.info-banner {
+  width: 100%;
+  margin-top: var(--space-3);
+  padding: var(--space-2);
+  background-color: var(--color-background-inactive);
+  border-left: 4px solid var(--color-primary);
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+/* Estilos para la lista de estadísticas en la sidebar */
+.stats-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.stats-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-1) 0;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.stats-list li:last-child {
+  border-bottom: none;
+}
+
+.stats-list li span {
+  font-weight: 600;
+}
+
+.stats-total {
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 2px solid var(--color-border-subtle);
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+}
+
+/* Estilo para el botón de edición cuando está activo */
+#edit-mode-toggle.active {
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+  border-color: var(--color-primary);
+}
+
+/* Cuando el modo edición está activo, cambia el cursor en las celdas de turno */
+.edit-mode-active .shift-cell {
+  cursor: pointer;
+}
+
+/* Efecto visual sutil en las celdas editables */
+.edit-mode-active .shift-cell:hover .turno-icon {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 3px var(--color-primary);
+}
+
+/* ================================================= */
+/* ESTILOS PARA LOS DÍAS CON NOVEDADES             */
+/* ================================================= */
+
+/* --- Para la VISTA DE CALENDARIO (FullCalendar) --- */
+.fc-daygrid-day.has-novedad {
+  background-color: #e6f7ff; /* Un azul claro suave */
+}
+.fc-daygrid-day.has-novedad:hover {
+  background-color: #d9f2ff;
+}
+.fc-day-today.has-novedad {
+  background-color: #cceeff !important;
+}
+
+/* --- ✅ Para la VISTA DE TABLA --- */
+.shift-cell.has-novedad {
+  background-color: #e6f7ff !important; /* Un azul claro suave */
+}
+
+.shift-cell.has-novedad:hover {
+  background-color: #d9f2ff !important; /* Un poco más oscuro al pasar el ratón */
+}

@@ -1,0 +1,29 @@
+/* css/views/_reports-list-view.css */
+
+.view-controls {
+  display: flex;
+  justify-content: space-between; /* <-- Esto separa los elementos a cada lado */
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-color-light);
+}
+
+.view-toggle-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.admin-filters .form-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0; /* Quitamos el margen por defecto del form-group */
+}
+
+#reports-list-content {
+  padding: 1.25rem;
+}
+
+.empty-state .empty-state-icon.new-color-class {
+  color: #1b9cfc;
+}

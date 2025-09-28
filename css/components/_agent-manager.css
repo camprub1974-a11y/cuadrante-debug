@@ -1,0 +1,99 @@
+/* css/components/_agent-manager.css */
+
+/* Estilo para el título del modal con icono */
+.modal-header-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--app-text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.modal-header-icon .material-icons {
+  font-size: 2rem;
+  color: var(--app-primary-blue);
+}
+
+.modal-header-icon h2 {
+  margin: 0;
+}
+
+/* Contenedor de la tabla */
+.agent-list-container {
+  margin-bottom: 1.5rem;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Estilo para las celdas de la tabla */
+.data-table .agent-name-cell {
+  font-weight: 500;
+}
+
+.data-table .actions-header {
+  text-align: right;
+}
+
+.data-table .actions-cell {
+  justify-content: flex-end;
+}
+
+/* Insignias de estado Activo/Inactivo */
+.status-badge.status-active {
+  background-color: var(--success-bg-light);
+  color: var(--success-color);
+}
+
+.status-badge.status-inactive {
+  background-color: var(--danger-bg-light);
+  color: var(--danger-color);
+}
+
+#agent-form {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* --- Estilos para la Tabla de Asignación --- */
+.assignment-table td,
+.assignment-table th {
+  vertical-align: middle; /* Centra verticalmente el contenido */
+}
+
+.assignment-table .checkbox-col {
+  width: 40px;
+  text-align: center;
+}
+
+.assignment-table input[type='checkbox'] {
+  width: 20px; /* Checkbox más grande */
+  height: 20px; /* Checkbox más grande */
+  cursor: pointer;
+}
+
+/* Insignia para Agentes "De Turno" */
+.status-badge.status-on-shift {
+  background-color: var(--info-bg-light, #e0f2fe);
+  color: var(--info-color, #0284c7);
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
+/* --- Estilos para la Tabla de Asignación con Radios --- */
+.assignment-table .radio-col {
+  width: 60px;
+  text-align: center;
+}
+.assignment-table input[type='radio'] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--app-primary-blue);
+}
+.assignment-table input[type='radio']:disabled {
+  cursor: not-allowed;
+  background-color: #eef2f9;
+}

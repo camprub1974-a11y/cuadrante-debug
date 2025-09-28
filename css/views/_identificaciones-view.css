@@ -1,0 +1,141 @@
+/* --------- HEADER GENERAL --------- */
+.view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  gap: 1rem;
+  background: transparent;
+}
+
+.view-header h3 {
+  margin: 0;
+  font-size: 1.15em;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Campo de búsqueda básico para personas y establecimientos */
+.view-header .filter-group input[type="search"] {
+  max-width: 400px;
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  padding: 0.7em 1em;
+  font-size: 1em;
+  border-radius: 0.5em;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  outline: none;
+  margin: 0;
+}
+
+/* Botón principal de acción */
+.button,
+.button.button-primary {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  height: 40px;
+  border-radius: 0.5em;
+  padding: 0 1.4em;
+  border: none;
+  background: #25a6e6;
+  color: #fff;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: background 0.2s;
+}
+.button.button-primary:hover {
+  background: #1976be;
+}
+
+.button i[data-feather] {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+/* --------- VEHÍCULOS: DISEÑO MODERNO --------- */
+.view-header.improved {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.2rem;
+  background: #fafdff;
+  padding: 2rem 1rem 1rem 1rem;
+}
+
+.view-header.improved h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.4em;
+}
+
+.search-action-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.search-box {
+  display: flex;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.search-box input[type="search"] {
+  border: none;
+  outline: none;
+  padding: 0.8em 1em;
+  font-size: 1.05em;
+  width: 100%;
+  height: 44px;
+  background: transparent;
+}
+
+.search-btn {
+  background: #258ee6;
+  color: #fff;
+  border: none;
+  width: 50px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-radius: 0;
+}
+.search-btn:hover {
+  background: #1976be;
+}
+
+.search-btn i[data-feather] {
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+}
+
+.view-header.improved .button.button-primary {
+  height: 44px;
+  padding: 0 1.3em;
+  font-size: 1em;
+  border-radius: 0.5em;
+}
+
+/* --------- ACCIONES --------- */
+.actions-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}

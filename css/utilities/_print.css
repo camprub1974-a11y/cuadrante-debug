@@ -1,0 +1,209 @@
+/* css/utilities/_print.css */
+@media print {
+  body > *:not(#print-view-container) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+    top: -9999px !important;
+  }
+
+  #print-view-container {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-family: var(--app-font-family) !important;
+    overflow: visible !important;
+    page-break-after: avoid !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    background-color: transparent !important;
+    color: inherit !important;
+    page-break-before: auto !important;
+    page-break-after: auto !important;
+    page-break-inside: auto !important;
+    orphans: 0 !important;
+    widows: 0 !important;
+  }
+
+  .print-schedule-table,
+  .print-schedule-table th,
+  .print-schedule-table td {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #000000 !important;
+  }
+  .print-schedule-table thead th {
+    background-color: #e0e0e0 !important;
+    color: #000000 !important;
+    font-weight: bold !important;
+  }
+  .print-schedule-table .shift-display {
+    background-color: var(--_local-bg-color) !important;
+    color: var(--_local-text-color) !important;
+  }
+
+  .print-page-wrapper {
+    padding: 5mm !important;
+    box-sizing: border-box !important;
+    width: 210mm !important;
+    min-height: auto !important;
+    margin: 0 auto !important;
+    overflow: visible !important;
+    page-break-after: avoid !important;
+  }
+
+  .print-schedule-title {
+    text-align: center !important;
+    font-size: 13pt !important;
+    margin-top: 0 !important;
+    margin-bottom: 2mm !important;
+    color: #000000 !important;
+  }
+
+  .print-month-title {
+    text-align: center !important;
+    font-size: 11pt !important;
+    margin-bottom: 3mm !important;
+    color: #000000 !important;
+  }
+
+  .print-schedule-table {
+    border-collapse: collapse !important;
+    margin: 0 !important;
+    font-family: var(--app-font-family) !important;
+    font-size: 7.5pt !important;
+    table-layout: fixed !important;
+  }
+
+  .print-schedule-table th,
+  .print-schedule-table td {
+    border: 1px solid #000000 !important;
+    padding: 0.8mm !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    box-sizing: border-box !important;
+    height: auto !important;
+  }
+
+  .print-schedule-table thead th {
+    background-color: #e0e0e0 !important;
+    color: #000000 !important;
+    font-weight: bold !important;
+  }
+
+  .print-schedule-table .agent-name-header {
+    text-align: left !important;
+    padding-left: 1mm !important;
+    font-size: 8pt !important;
+  }
+  .print-schedule-table .day-number-header,
+  .print-schedule-table .day-name-header {
+    font-size: 7.5pt !important;
+  }
+
+  .print-schedule-table .shift-display {
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 3.5mm !important;
+    height: 3.5mm !important;
+    border-radius: 50% !important;
+    font-size: 4.5pt !important;
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    border: 0.5px solid #ccc !important;
+    line-height: 1 !important;
+    flex-shrink: 0 !important;
+  }
+
+  img {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .print-tables-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    page-break-inside: avoid !important;
+  }
+  .print-tables-container > table {
+    page-break-inside: avoid !important;
+    margin: 0 auto !important;
+    page-break-before: auto !important;
+    margin-top: 0 !important;
+  }
+
+  /* Estilos para el nuevo contador de notificaciones */
+  .notification-bell-container {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+  }
+
+  .notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--danger-color);
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 10px;
+    min-width: 12px;
+    text-align: center;
+    line-height: 1;
+    border: 2px solid var(--app-primary-blue);
+    transform: scale(1);
+    transform-origin: center;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .notification-badge:not(.hidden) {
+    animation: pop-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+
+  @keyframes pop-in {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    80% {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+}

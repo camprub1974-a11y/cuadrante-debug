@@ -1,0 +1,148 @@
+<style>
+  .filter-group-horizontal {
+    display: flex; flex-wrap: wrap; align-items: flex-end; gap: 1rem; padding: 1rem;
+  }
+  .filter-group-horizontal .form-group { margin-bottom: 0; }
+  .filter-group-horizontal .filter-actions { margin-left: auto; display: flex; gap: 0.5rem; }
+  .form-grid-3-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+
+  /* ================================================= */
+  /* == AÑADE ESTAS NUEVAS REGLAS PARA LOS ESTADOS == */
+  /* ================================================= */
+  .status-badge {
+    display: inline-block;
+    padding: 0.25em 0.75em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: center;
+    border-radius: 9999px; /* Forma de píldora */
+    text-transform: capitalize;
+  }
+
+  .status-badge.status-pendiente {
+    background-color: #fef9c3; /* Amarillo claro */
+    color: #713f12; /* Amarillo oscuro */
+  }
+
+  .status-badge.status-finalizado {
+    background-color: #dcfce7; /* Verde claro */
+    color: #166534; /* Verde oscuro */
+  }
+
+  .status-badge.status-revisado,
+  .status-badge.status-recepcionado {
+    background-color: #dbeafe; /* Azul claro */
+    color: #1e40af; /* Azul oscuro */
+  }
+
+  .status-badge.status-default {
+    background-color: #e2e8f0; /* Gris claro */
+    color: #475569; /* Gris oscuro */
+  }
+</style>
+
+<div id="registro-view-content" class="view-content">
+  <div class="card">
+    <div class="card-header">
+      <h2><i data-feather="archive"></i><span>Registro Electrónico</span></h2>
+      <div class="actions-group">
+        <button id="create-salida-btn" class="button button-secondary hidden"><i data-feather="file-plus"></i><span>Crear Salida</span></button>
+        <button id="add-entrada-btn" class="button button-primary"><i data-feather="inbox"></i><span>Añadir Registro de Entrada</span></button>
+      </div>
+    </div>
+    
+    <div class="card-body no-padding">
+      <div class="sub-nav-tabs">
+        <button class="sub-nav-tab active" data-subview="entrada">Registros de Entrada</button>
+        <button class="sub-nav-tab" data-subview="salida">Registros de Salida</button>
+      </div>
+
+      <div id="entrada-form-container" class="hidden" style="padding: 1.5rem; border-bottom: 1px solid var(--color-border); background-color: var(--color-background-inactive);">
+        <h3 id="entrada-form-title" style="margin-top: 0; margin-bottom: 1.5rem; font-size: 1.25rem;">Nuevo Registro de Entrada</h3>
+        <form id="entrada-form">
+          <input type="hidden" id="entrada-id">
+          
+          <div class="form-grid-3-cols">
+            <div class="form-group">
+              <label class="form-label" for="entrada-numero-registro">Nº Registro</label>
+              <input type="text" id="entrada-numero-registro" placeholder="Se generará al guardar" disabled>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="entrada-fecha">Fecha de Presentación</label>
+              <input type="date" id="entrada-fecha" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="entrada-interesado">Nombre del Interesado</label>
+              <input type="text" id="entrada-interesado" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="entrada-tipo-documento">Tipo de Documento</label>
+              <select id="entrada-tipo-documento" class="selector" required>
+                <option value="">Selecciona tipo...</option>
+                <option value="oficio_judicial">Oficio Judicial</option>
+                <option value="req_administracion">Requerimiento Administración</option>
+                <option value="sol_aseguradora">Solicitud Aseguradora</option>
+                <option value="instancia_general">Instancia General</option>
+                <option value="comunicacion_interna">Comunicación Interna</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="entrada-estado">Estado</label>
+              <select id="entrada-estado" class="selector" required>
+                <option value="pendiente">Pendiente de Revisión</option>
+                <option value="recepcionado">Recepcionado</option>
+                <option value="revisado">Revisado</option>
+                <option value="finalizado">Finalizado</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="entrada-referencia">Nº Referencia</label>
+                <input type="text" id="entrada-referencia" placeholder="Ej: Oficio 123/2025">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="entrada-asunto">Asunto</label>
+            <textarea id="entrada-asunto" rows="2" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="entrada-observaciones">Observaciones</label>
+            <textarea id="entrada-observaciones" rows="3"></textarea>
+          </div>
+
+          <div class="modal-footer" style="padding: 1.5rem 0 0 0; background-color: transparent; border-top: none;">
+            <button type="button" id="cancel-entrada-btn" class="button button-secondary">Cancelar</button>
+            <button type="submit" class="button button-primary">Guardar Registro</button>
+          </div>
+        </form>
+      </div>
+      <div id="registros-subview" class="sub-view active">
+        <div style="padding: 0;"> <div class="filter-group-horizontal">
+            <div class="form-group">
+              <label for="registro-filter-interesado">Interesado</label>
+              <input type="text" id="registro-filter-interesado">
+            </div>
+            <div class="form-group">
+              <label for="registro-filter-date">Fecha</label>
+              <input type="date" id="registro-filter-date">
+            </div>
+            <div class="form-group">
+              <label for="registro-filter-type">Tipo</label>
+              <select id="registro-filter-type" class="selector">
+                <option value="">Todos los tipos</option>
+                </select>
+            </div>
+            <div class="filter-actions">
+              <button id="apply-registro-filters-btn" class="button button-primary">Buscar</button>
+              <button id="clear-registro-filters-btn" class="button button-secondary">Limpiar</button>
+            </div>
+          </div>
+          <hr class="subtle-divider" style="margin: 0;" />
+          <div id="registros-list-container" class="table-container" style="padding: 1rem;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

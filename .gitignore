@@ -1,0 +1,17 @@
+# Dependencias de Node (MUY IMPORTANTE)
+node_modules/
+
+# Build output de Vite
+dist/
+
+# Archivos de entorno y secretos
+.env
+*.env
+serviceAccountKey.json
+
+# Cache de Puppeteer (Navegador descargado)
+functions/.cache/
+
+# Logs
+logs
+*.log

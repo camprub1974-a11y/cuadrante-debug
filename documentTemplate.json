@@ -1,0 +1,87 @@
+{
+  "fields": [
+    { "id": "num_inspeccion", "label": "Nº Inspección", "type": "text" },
+    { "id": "expediente", "label": "Expediente", "type": "text" },
+    { "id": "fecha_acta", "label": "Fecha acta", "type": "date" },
+    { "id": "hora_acta", "label": "Hora acta", "type": "time" },
+    { "id": "ubicacion", "label": "Ubicación/solar", "type": "text" },
+    { "id": "tip_agentes", "label": "T.I.P. agentes", "type": "multiselect", "optional": false },  
+    { "id": "promotor", "label": "Promotor", "type": "text" },
+    { "id": "representante", "label": "Representante", "type": "text" },
+    { "id": "nif_representante", "label": "NIF Representante", "type": "text" },
+    { "id": "denunciante", "label": "Denunciante", "type": "text" },
+    { "id": "dni_denunciante", "label": "DNI Denunciante", "type": "text" },
+    { "id": "entidad_promotora", "label": "Entidad promotora", "type": "text" },
+    { "id": "domicilio_notificaciones", "label": "Domicilio notificaciones", "type": "text" },
+
+    { "id": "suelo_privado", "label": "Suelo privado", "type": "checkbox" },
+    { "id": "suelo_publico", "label": "Suelo público", "type": "checkbox" },
+    { "id": "obras_particulares", "label": "Obras particulares", "type": "checkbox" },
+    { "id": "via_publica", "label": "Vía pública", "type": "checkbox" },
+    { "id": "publicidad", "label": "Publicidad", "type": "checkbox" },
+    { "id": "licencias", "label": "Licencias", "type": "checkbox" },
+    { "id": "tasas", "label": "Tasas", "type": "checkbox" },
+    { "id": "otros", "label": "Otros", "type": "checkbox" },
+    { "id": "otros_texto", "label": "Especificar otros", "type": "text", "conditional": { "field": "otros", "value": true } },  
+
+    { "id": "inspeccion_oficio", "label": "Oficio", "type": "checkbox" },
+    { "id": "inspeccion_orden", "label": "Orden sgto.", "type": "checkbox" },
+    { "id": "paralizacion", "label": "Paralización", "type": "checkbox" },
+    { "id": "sgto_licencia", "label": "Sgto. Licencia", "type": "checkbox" },
+    { "id": "precintadas", "label": "Precintadas", "type": "checkbox" },
+    { "id": "terminadas", "label": "Terminadas", "type": "checkbox" },
+    { "id": "uso_instalado", "label": "Uso/instalado", "type": "checkbox" },
+
+    { "id": "hechos_comprobados", "label": "Hechos comprobados", "type": "textarea" },
+
+    { "id": "presenta_licencia", "label": "Licencia presentada", "type": "checkbox" },
+    { "id": "no_licencia", "label": "Licencia no presentada", "type": "checkbox" },
+    { "id": "en_ejecucion", "label": "En ejecución", "type": "checkbox" },
+    { "id": "parada", "label": "Parada", "type": "checkbox" },
+    { "id": "paralizadas", "label": "Paralizadas", "type": "checkbox" },
+    { "id": "precintadas2", "label": "Precintadas (actuación)", "type": "checkbox" },
+    { "id": "terminadas2", "label": "Terminadas (actuación)", "type": "checkbox" },
+    { "id": "reportaje_fotografico", "label": "Reportaje fotográfico", "type": "checkbox" },
+    { "id": "croquis", "label": "Croquis", "type": "checkbox" },
+    { "id": "otros_medios", "label": "Otros medios de comprobación", "type": "checkbox" },
+
+    { "id": "observaciones", "label": "Observaciones/advertencias", "type": "textarea" },
+
+    { "id": "AGENTES_FIRMANTES", "label": "Agente/s actuantes", "type": "multiselect", "optional": false },
+    { "id": "interesado_firma", "label": "Firma interesado/destinatario", "type": "text" },
+    {
+      "id": "anexos_fotograficos",
+      "label": "Fotos del anexo fotográfico",
+      "type": "repeater",
+      "itemLabel": "Foto",
+      "itemFields": [
+        { "id": "foto", "label": "Imagen", "type": "image" },
+        { "id": "pie", "label": "Pie de foto (opcional)", "type": "text" }
+      ]
+    }
+  ],
+  "fieldOrder": [
+    { "groupName": "Cabecera", "fields": [
+        "num_inspeccion", "expediente", "fecha_acta", "hora_acta", "ubicacion"
+      ]
+    },
+    { "groupName": "Agentes y comparecientes", "fields": [
+        "tip_agentes", "promotor", "representante", "nif_representante", "denunciante", "dni_denunciante", "entidad_promotora", "domicilio_notificaciones"
+      ]
+    },
+    { "groupName": "Datos y finalidad", "fields": [
+        "suelo_privado", "suelo_publico", "obras_particulares", "via_publica", "publicidad", "licencias", "tasas", "otros", "otros_texto",
+        "inspeccion_oficio", "inspeccion_orden", "paralizacion", "sgto_licencia", "precintadas", "terminadas", "uso_instalado"
+      ]
+    },
+    { "groupName": "Hechos comprobados", "fields": ["hechos_comprobados"] },
+    { "groupName": "Licencias y actuaciones", "fields": [
+        "presenta_licencia", "no_licencia", "en_ejecucion", "parada", "paralizadas", "precintadas2", "terminadas2",
+        "reportaje_fotografico", "croquis", "otros_medios"
+      ]
+    },
+    { "groupName": "Observaciones", "fields": ["observaciones"] },
+    { "groupName": "Firmas", "fields": ["AGENTES_FIRMANTES", "interesado_firma"] },
+    { "groupName": "Anexo fotográfico", "fields": ["anexos_fotograficos"] }
+  ]
+}

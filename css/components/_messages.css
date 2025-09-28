@@ -1,0 +1,42 @@
+/* css/components/_messages.css */
+#app-messages-container {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10001;
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.app-message {
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  color: white;
+  font-weight: 500;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+  pointer-events: auto;
+}
+
+.app-message-info {
+  background-color: #3b82f6;
+}
+.app-message-success {
+  background-color: #16a34a;
+}
+.app-message-warning {
+  background-color: #f59e0b;
+}
+.app-message-error {
+  background-color: #dc2626;
+}
+
+.app-message.fade-out {
+  opacity: 0;
+}

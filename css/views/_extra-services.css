@@ -1,0 +1,244 @@
+/* css/views/_extra-services.css (VERSIÓN LIMPIA Y CORREGIDA) */
+
+/* Estilos para el nuevo layout de dos columnas */
+.view-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr 350px; /* Contenido principal flexible, barra lateral de 350px */
+  gap: var(--space-4); /* Espacio entre columnas */
+  align-items: flex-start;
+}
+
+.main-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.sidebar-column {
+  position: sticky; /* Se queda fija al hacer scroll */
+  top: var(--space-4);
+}
+
+.stats-filters {
+  display: flex;
+  gap: var(--space-2);
+}
+.stats-filters .form-group {
+  flex: 1;
+}
+
+/* Estilos para los badges de servicios extraordinarios en las celdas del cuadrante */
+.extra-services-cell-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px; /* Espacio entre badges si hay varios */
+  margin-top: 5px; /* Pequeño margen superior para separarlo del turno principal */
+}
+
+.extra-service-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: white;
+  font-size: 0.7em;
+  font-weight: bold;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+}
+
+/* Colores para los tipos de servicios extraordinarios, usando las variables definidas en :root */
+.extra-service-diurno {
+  background-color: var(--shift-M-bg);
+}
+.extra-service-nocturno {
+  background-color: var(--shift-N-bg);
+}
+.extra-service-festivo {
+  background-color: var(--shift-T-bg);
+}
+.extra-service-festivo_nocturno {
+  background-color: var(--shift-B-bg);
+}
+
+/* Estilos específicos para la vista de servicios extraordinarios (FullCalendar) */
+#extra-services-calendar {
+  max-width: 100%;
+  margin: 0 auto;
+  font-family: var(--app-font-family);
+}
+
+/* Ajustes para los eventos de FullCalendar */
+.fc-event {
+  font-size: 0.8em;
+  padding: 2px 4px;
+  border-radius: 3px;
+  border: none !important;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fc-event-title {
+  font-weight: 500;
+}
+
+/*
+  NOTA: Las reglas antiguas para #extra-services-admin-view .view-controls
+  y #extra-services-admin-view .filters-group han sido ELIMINADAS
+  para permitir que los estilos de css/components/_filters.css tomen el control.
+*/
+
+/* ==================================================================== */
+/* === ESTILOS MEJORADOS PARA EL PANEL DE FILTROS DE SERVICIOS EXTRA === */
+/* ==================================================================== */
+
+/* 1. Optimización del Espacio (Diseño en Rejilla) */
+.filter-grid {
+  display: grid;
+  /* Por defecto 5 columnas: Agente, Tipo, Desde, Hasta, Acciones */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px; /* Espaciado reducido y consistente */
+  align-items: end; /* Alinea todos los elementos a la base */
+}
+
+.filter-grid .form-group {
+  margin-bottom: 0; /* Eliminamos el margen inferior porque el 'gap' ya se encarga */
+}
+
+/* El contenedor de los botones ocupa el espacio necesario */
+.filter-grid .filter-actions {
+  display: flex;
+  justify-content: flex-end; /* Alinea los botones a la derecha */
+  gap: 8px;
+}
+
+/* 2. Mejoras Visuales (Tipografía y Controles) */
+.filter-grid .form-group label {
+  font-size: 13px;       /* Tamaño de etiqueta más pequeño */
+  font-weight: 500;      /* Peso semibold para jerarquía */
+  color: #4a5568;        /* Un color de texto más suave */
+}
+
+/* Estilos refinados para inputs y selects */
+.filter-grid input[type="date"],
+.filter-grid select {
+  border: 1px solid #cbd5e0;  /* Borde más sutil */
+  border-radius: 6px;         /* Esquinas ligeramente redondeadas */
+  padding: 8px 12px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Mejora de estados hover y focus */
+.filter-grid input[type="date"]:focus,
+.filter-grid select:focus {
+  border-color: #3b82f6; /* Color primario de la app */
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  outline: none;
+}
+
+/* 3. Optimización de Botones */
+.filter-grid .button {
+  height: 38px; /* Altura compacta y accesible */
+  padding: 0 16px;
+  font-weight: 600;
+}
+
+/* Botón secundario (Limpiar) con estilo "outline" */
+.filter-grid .button-secondary {
+  background-color: transparent;
+  border: 1px solid #cbd5e0;
+  color: #4a5568;
+}
+
+.filter-grid .button-secondary:hover {
+  background-color: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+/* 4. Diseño Responsivo (Tablet y Móvil) */
+
+/* Para tablets (ej. < 1024px) - 2 columnas */
+@media (max-width: 1024px) {
+  .filter-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  .filter-grid .filter-actions {
+     /* Ocupa toda la fila en tablets */
+    grid-column: 1 / -1;
+  }
+}
+
+/* Para móviles (ej. < 640px) - 1 columna */
+@media (max-width: 640px) {
+  .filter-grid {
+    grid-template-columns: 1fr; /* Una sola columna */
+  }
+}
+
+/* ================================================================= */
+/* === ESTILOS MEJORADOS PARA EL PANEL DE ESTADÍSTICAS (SIDEBAR) === */
+/* ================================================================= */
+
+/* 1. Rejilla compacta para filtros */
+.stats-filter-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
+  gap: 12px; /* Un espaciado más ajustado para la sidebar */
+  margin-bottom: 20px; /* Espacio antes de la tarjeta de total */
+}
+
+.stats-filter-grid .form-group {
+  margin-bottom: 0;
+}
+
+/* 2. Tarjeta de métrica principal (KPI) */
+.stats-total-card {
+  background-color: #f8fafc; /* Un fondo muy sutil */
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  margin-bottom: 20px; /* Espacio antes del gráfico */
+}
+
+.stats-total-card .stat-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 4px;
+}
+
+.stats-total-card .stat-value {
+  display: block;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.2;
+}
+
+/* 3. Estilos consistentes para los selectores (heredados de los filtros principales) */
+.sidebar-column .form-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.sidebar-column select {
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.sidebar-column select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  outline: none;
+}

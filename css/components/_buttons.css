@@ -1,0 +1,144 @@
+/* css/components/_buttons.css */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  height: 40px;
+  padding: 0 var(--space-2); /* 16px horizontal */
+  border-radius: var(--border-radius-md); /* 8px */
+  font-family: var(--font-primary);
+  font-size: var(--text-sm); /* 14px */
+  font-weight: 600; /* SemiBold */
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.button:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Variante Primaria */
+.button-primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+}
+.button-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* Variante Secundaria */
+.button-secondary {
+  background-color: transparent;
+  stroke: var(--color-primary); /* Forzamos el trazo a ser del color primario (azul) */
+  border-color: var(--color-primary);
+}
+.button-secondary:hover {
+  background-color: rgba(27, 156, 252, 0.1);
+}
+
+.view-actions .button-secondary {
+  color: #f5f5f5; /* Este es el mismo color azul que usas en tus iconos */
+}
+
+/* Da color azul al icono 'eye' en la tabla de partes validados */
+.view-validated-report-btn svg {
+  stroke: #1b9cfc; /* Este es el mismo color azul que usas en tus iconos */
+}
+
+/* Opcional: Cambia el color al pasar el ratón por encima para mejor feedback */
+.view-validated-report-btn:hover svg {
+  stroke: white; /* El icono se vuelve blanco cuando el fondo del botón cambia */
+}
+
+/* Variante Terciaria (o de Texto) */
+.button-tertiary {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+.button-tertiary:hover {
+  background-color: var(--color-background-hover);
+}
+
+/* Botones de Icono (Estilo Actualizado) */
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  
+  /* --- CAMBIOS APLICADOS --- */
+  background-color: #F0F4FF; /* Color de fondo azul pastel */
+  color: #1f2d3d;            /* Color del icono azul-violeta */
+  border-radius: 8px;         /* Esquinas redondeadas (en lugar de círculo) */
+  /* --- FIN DE CAMBIOS --- */
+
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon-button:hover {
+  background-color: #E0E8FF; /* Un fondo ligeramente más oscuro al pasar el ratón */
+  color: #101d47;            /* Un color de icono ligeramente más oscuro */
+}
+
+.icon-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ============================================= */
+/* == ESTILOS PARA BOTONES DE ACCIÓN (ICONOS) == */
+/* ============================================= */
+
+/* Contenedor de los botones dentro de la celda */
+.acciones-registro {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Alinea los iconos al inicio de la celda */
+  gap: 0.5rem; /* Un pequeño espacio entre cada icono */
+}
+
+/* Estilo base para cada botón de acción */
+.acciones-registro button {
+  background: none;          /* Sin fondo por defecto */
+  border: none;              /* Sin bordes */
+  padding: 0;                /* Sin relleno interno */
+  margin: 0;
+  width: 32px;               /* Ancho fijo */
+  height: 32px;              /* Alto fijo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;        /* Forma circular */
+  cursor: pointer;
+  transition: background-color 0.2s ease; /* Transición suave */
+}
+
+/* Efecto al pasar el ratón por encima */
+.acciones-registro button:hover {
+  background-color: rgba(0, 0, 0, 0.08); /* Un fondo gris sutil */
+}
+
+/* Estilo para el icono SVG/Feather dentro del botón */
+.acciones-registro button svg,
+.acciones-registro button i {
+  width: 18px;               /* Tamaño del icono */
+  height: 18px;              /* Tamaño del icono */
+  stroke: #555;            /* Color del icono (gris oscuro) */
+  transition: stroke 0.2s ease;
+}
+
+/* Cambio de color del icono al pasar el ratón */
+.acciones-registro button:hover svg,
+.acciones-registro button:hover i {
+  stroke: #007bff;           /* Color primario de tu aplicación */
+}

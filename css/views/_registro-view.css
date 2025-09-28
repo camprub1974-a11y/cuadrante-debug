@@ -1,0 +1,341 @@
+/* Estilos específicos para la vista de Registro Electrónico */
+
+/* ================================================= */
+/* ESTILOS PARA LA SUB-NAVEGACIÓN DE PESTAÑAS        */
+/* ================================================= */
+
+/* Estilos para Pestañas de Sub-Navegación (Identificaciones, Registro, etc.) */
+.sub-nav-tabs {
+  display: flex;
+  border-bottom: 1px solid #e2e8f0; /* Línea separadora */
+  padding-left: 1rem; /* Espacio a la izquierda para alinear con el contenido */
+}
+
+.sub-nav-tab {
+  padding: 0.75rem 1rem;
+  border: none;
+  background-color: transparent;
+  color: #64748b; /* Color de texto secundario */
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px; /* Solapa el borde para un efecto integrado */
+  transition: all 0.2s ease-in-out;
+  font-size: 0.9rem;
+}
+
+.sub-nav-tab:hover {
+  color: #1e293b; /* Color de texto principal */
+}
+
+.sub-nav-tab.active {
+  color: #1b9cfc; /* Color primario de la aplicación */
+  border-bottom-color: #1b9cfc;
+}
+
+.sub-view.hidden {
+  display: none;
+}
+
+/* ================================================= */
+/* ESTILOS EXISTENTES (SIN MODIFICAR)                */
+/* ================================================= */
+
+/* --- Estilos para la nueva barra de filtros del Registro --- */
+#registro-filters-card .view-controls {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* --- Corrección de diseño para que la tabla ocupe el espacio --- */
+/* Le decimos a la vista de registro que crezca y ocupe el espacio vertical disponible */
+#registro-view.view-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* ¡Esta es la clave! */
+}
+
+#registro-view > .card {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+}
+
+#registros-list-container {
+  flex-grow: 1; /* El contenedor de la tabla también debe crecer */
+  overflow-y: auto; /* Añade scroll si el contenido es muy largo */
+}
+
+/* ✅ REGLA FINAL Y CORRECTA PARA ALINEAR A LA IZQUIDA */
+.data-table .actions-cell {
+  display: flex;
+  justify-content: flex-start; /* Alinear el contenido al inicio (izquierda) */
+  align-items: center; /* Centrar los iconos verticalmente en la celda */
+  gap: 0.5rem; /* Mantener el espacio entre los iconos */
+}
+
+/* ✅ REGLAS ESPECÍFICAS PARA LOS ICONOS DE LA TABLA DE REGISTRO */
+
+/* Usamos el ID de la vista (#registro-view) para aumentar la especificidad */
+#registro-view .data-table .actions-cell .material-icons {
+  color: #e53e3e; /* Rojo moderno */
+  transition: color 0.2s ease;
+}
+
+#registro-view .data-table .actions-cell button:hover .material-icons {
+  color: #c53030; /* Rojo más oscuro al pasar el ratón */
+}
+
+/* NUEVOS ESTILOS PARA EL FAB (Floating Action Button) */
+.fab-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  height: 3.5rem;
+  width: 3.5rem;
+  border-radius: 50%;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.fab-button:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-lg);
+}
+
+.fab-button .material-icons {
+  font-size: 1.5rem;
+  color: white;
+}
+
+/* NUEVOS ESTILOS PARA EL ESTADO VACÍO */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem;
+  color: var(--app-text-secondary);
+}
+
+.empty-state .empty-state-icon {
+  font-size: 5rem;
+  color: var(--app-primary-blue-lighter);
+  margin-bottom: 1rem;
+}
+
+.empty-state h4 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.empty-state p {
+  max-width: 400px;
+  margin: 0.5rem 0 1.5rem;
+  line-height: 1.5;
+}
+
+/* NUEVOS ESTILOS PARA EL EDITOR DE PLANTILLAS */
+.template-source-code {
+  width: 100%;
+  height: 400px; /* O la altura que prefieras */
+  font-family: Consolas, 'Courier New', monospace; /* Fuente de código */
+  font-size: 9pt;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-sizing: border-box;
+  resize: vertical; /* Permite al usuario cambiar la altura */
+}
+
+/* --- ESTILOS PARA EL ASISTENTE (WIZARD) --- */
+
+/* Contenedor de los indicadores de paso */
+#wizard-progress {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Círculo o caja para cada paso */
+.step-indicator {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #aaa;
+  background-color: #f9f9f9;
+  font-size: 0.9em;
+  transition: all 0.3s ease;
+}
+
+/* Estilo para el paso activo */
+.step-indicator.active {
+  border-color: #007bff;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+/* Contenedor de los botones de navegación */
+#wizard-navigation {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #ddd;
+  text-align: right;
+}
+
+#wizard-navigation button {
+  margin-left: 10px;
+}
+
+
+/* --- ESTILOS PARA RESALTAR CAMPOS OBLIGATORIOS (Tu idea del color) --- */
+
+/* Añade un asterisco rojo a las etiquetas de los campos requeridos */
+.form-group.required .form-label::after {
+  content: " *";
+  color: #dc3545; /* Rojo */
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+/* Resalta sutilmente los campos requeridos que están vacíos */
+/* Esto requiere un poco de JS para añadir/quitar la clase 'is-invalid' */
+.form-group input.is-invalid,
+.form-group textarea.is-invalid,
+.form-group select.is-invalid {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 1px #dc3545;
+}
+
+/* EN tu archivo CSS principal (ej. main.css) */
+
+.card-tabs {
+  display: flex;
+  border-bottom: 1px solid #e2e8f0; /* Línea separadora */
+  padding: 0 1rem; /* Alinea las pestañas con el contenido del card-body */
+}
+
+.tab-button {
+  padding: 0.75rem 1rem;
+  border: none;
+  background-color: transparent;
+  color: #64748b; /* Color de texto secundario */
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px; /* Solapa el borde inferior para un efecto integrado */
+  transition: all 0.2s ease-in-out;
+}
+
+.tab-button:hover {
+  color: #1e293b; /* Color de texto principal */
+}
+
+.tab-button.active {
+  color: #1b9cfc; /* Color primario de la aplicación */
+  border-bottom-color: #1b9cfc;
+}
+
+.registro-table td > button {
+  min-width: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1rem;
+}
+.registro-table td {
+  vertical-align: middle;
+}
+
+/* ============================================= */
+/* == ESTILOS PARA FILTROS HORIZONTALES       == */
+/* ============================================= */
+
+/* Contenedor principal de los filtros */
+.filter-group {
+  display: flex;           /* Activa el modo horizontal */
+  flex-wrap: wrap;         /* Permite que los filtros pasen a la siguiente línea si no hay espacio */
+  align-items: flex-end;   /* Alinea los campos por la parte inferior, queda mejor visualmente */
+  gap: 1rem;               /* Espacio uniforme entre cada elemento del filtro */
+  padding: 1rem;           /* Un poco de espacio interno */
+}
+
+/* Evita que los grupos de formulario dentro del filtro tengan márgenes extra */
+.filter-group .form-group {
+  margin-bottom: 0;
+}
+
+/* =================================================================== */
+/* == AJUSTES FINALES PARA LA VISTA DE REGISTRO ELECTRÓNICO         == */
+/* =================================================================== */
+
+/* 1. Pone los botones "Buscar" y "Limpiar" en la misma línea */
+.filter-actions {
+  display: flex;
+  gap: 0.5rem; /* Espacio entre los botones */
+}
+
+/* 2. Asegura que el icono se vea bien en los botones principales con texto */
+.actions-group .button {
+  display: inline-flex; /* Activa flexbox para el botón */
+  align-items: center;   /* Centra verticalmente el icono y el texto */
+  gap: 0.5em;          /* Espacio entre el icono y el texto */
+}
+
+/* 3. Estilos DEFINITIVOS para los iconos de acción en la tabla */
+/* Este código anula cualquier otro estilo de botón dentro de la celda de acciones */
+.acciones-registro, .actions-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.acciones-registro button,
+.actions-cell button {
+  /* Reseteamos la apariencia del botón */
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #555 !important; /* Color para el icono */
+  
+  /* Le damos forma y tamaño */
+  padding: 0;
+  margin: 0;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Estilo para el icono SVG/Feather dentro del botón */
+.acciones-registro button svg,
+.acciones-registro button i,
+.actions-cell button svg,
+.actions-cell button i {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor; /* El icono hereda el color del botón (#555) */
+}
+
+/* Efecto al pasar el ratón por encima */
+.acciones-registro button:hover,
+.actions-cell button:hover {
+  background-color: rgba(0, 0, 0, 0.08) !important; /* Fondo gris sutil */
+  color: #007bff !important; /* Cambia el color del icono a azul */
+}

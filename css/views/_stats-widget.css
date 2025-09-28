@@ -1,0 +1,59 @@
+/* css/views/_stats-widget.css */
+
+/* Aplica a cualquier h4 dentro de una tarjeta en la barra lateral */
+.sidebar-column .card h4 {
+  margin-top: 0;
+  margin-bottom: 0.75rem; /* Espacio debajo del título */
+  padding-bottom: 0.75rem; /* Espacio para que la línea no esté pegada al texto */
+  border-bottom: 1px solid var(--border-color-light); /* La línea separadora */
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Contenedor para el menú desplegable */
+.stats-controls {
+  margin-bottom: 1.5rem; /* Espacio entre el selector y el contenido de las estadísticas */
+}
+
+.stats-range-selector {
+  width: 100%; /* Hace que el selector ocupe todo el ancho disponible */
+}
+
+/* Estilos para el contenedor de las estadísticas (grid) */
+#stats-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stats-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+  gap: 1rem;
+}
+
+.stat-item {
+  padding: 1rem;
+  background-color: #f8fafc;
+  border: 1px solid var(--border-color-light);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.stat-item .value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--app-primary-blue);
+}
+
+.stat-item .label {
+  font-size: 0.85rem;
+  color: var(--app-text-secondary);
+}
+
+/* Responsive para el grid de stats */
+@media (max-width: 1200px) {
+  .stats-info-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en pantallas más pequeñas */
+  }
+}

@@ -1,0 +1,25 @@
+/* css/layout/_main-layout.css */
+
+.main-layout {
+  display: flex;
+  gap: var(--space-4); /* 32px */
+  align-items: flex-start;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.main-content-column {
+  flex: 1 1 70%;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.sidebar-column {
+  flex: 0 0 380px; /* Ancho fijo para la barra lateral */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3); /* 24px */
+  position: sticky;
+  top: calc(var(--space-8) + var(--space-4)); /* 64px del header + 32px de margen */
+}

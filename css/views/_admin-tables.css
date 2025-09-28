@@ -1,0 +1,54 @@
+/* css/views/_admin-tables.css */
+
+/* Contenedor de filtros para vistas de administración */
+.admin-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1rem;
+}
+
+.admin-filters .form-group {
+  flex: 1 1 180px; /* Flexbox para que se ajusten */
+  margin-bottom: 0;
+}
+
+.admin-filters .button {
+  flex-shrink: 0; /* Evita que el botón se encoja */
+  margin-bottom: 0;
+}
+
+/* Estilos para la tabla de servicios del admin, heredando de .requests-table */
+.admin-services-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-services-table th,
+.admin-services-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.admin-services-table thead th {
+  background-color: var(--table-header-bg);
+  color: var(--table-header-text);
+  font-weight: 500;
+}
+
+.admin-services-table tbody tr:hover {
+  background-color: var(--table-row-hover-bg);
+}
+
+.admin-services-table .notes-cell {
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.9em;
+  color: var(--text-color-light);
+}

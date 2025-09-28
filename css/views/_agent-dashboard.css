@@ -1,0 +1,56 @@
+/* css/views/_agent-dashboard.css */
+
+#agent-current-order-widget .card-content {
+  padding: 0; /* Quitamos el padding por defecto para un control total */
+}
+
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f7fafc;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border-color-light);
+}
+
+.widget-header h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.widget-reg-number {
+  font-size: 0.85rem;
+  font-weight: 500;
+  background-color: #eef2f9;
+  color: var(--app-text-secondary);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.widget-details {
+  padding: 1.25rem;
+}
+
+.widget-details p {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.9rem;
+  color: var(--app-text-secondary);
+}
+
+.widget-details p strong {
+  color: var(--app-text-primary);
+  min-width: 60px;
+  display: inline-block;
+}
+
+.widget-details p:last-child {
+  margin-bottom: 0;
+}
+
+.widget-actions {
+  padding: 1rem 1.25rem;
+  background-color: #f8fafc;
+  border-top: 1px solid var(--border-color-light);
+  text-align: right;
+}

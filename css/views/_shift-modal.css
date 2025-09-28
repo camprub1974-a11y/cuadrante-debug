@@ -1,0 +1,40 @@
+/* css/components/_shift-modal.css */
+.shift-edit-info {
+  text-align: center;
+  margin: 1rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color-light);
+}
+.shift-edit-info p {
+  margin: 0.25rem 0;
+  color: var(--app-text-secondary);
+}
+.shift-edit-info strong {
+  color: var(--app-text-primary);
+}
+.shift-type-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+.shift-type-btn {
+  padding: 12px 8px;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+  background-color: #f8fafc;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.shift-type-btn:hover {
+  background-color: var(--app-primary-blue);
+  color: rgb(28, 4, 248);
+  border-color: var(--app-primary-blue);
+  transform: translateY(-2px);
+}
+#remove-shift-btn {
+  width: 100%;
+  color: rgb(255, 255, 255);
+  background-color: color(srgb 0.11 0.61 0.99);
+}

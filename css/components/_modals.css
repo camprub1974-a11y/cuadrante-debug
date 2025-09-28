@@ -1,0 +1,213 @@
+/* css/components/_modals.css (Versión Final y Corregida) */
+
+/* 1. El overlay que cubre toda la pantalla */
+.modal-overlay {
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(17, 24, 39, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-3);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
+}
+
+.modal-overlay:not(.hidden) {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* 2. El contenedor principal del modal (la "tarjeta") */
+.modal-content {
+  background-color: var(--color-bg-card);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px; /* Ancho por defecto */
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  overflow: hidden;
+  transform: scale(0.95);
+  transition: transform 0.2s ease-out;
+}
+
+.modal-overlay:not(.hidden) .modal-content {
+  transform: scale(1);
+}
+
+/* Modificadores de tamaño */
+.modal-content.large {
+  max-width: 800px;
+}
+.modal-content.small {
+  max-width: 450px;
+}
+
+/* 3. Cabecera y Pie de página (fijos) */
+.modal-header,
+.modal-footer {
+  flex-shrink: 0; /* Evita que se encojan */
+}
+
+.modal-header {
+  padding: var(--space-2) var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-light);
+  background-color: var(--color-header-bg, #1f2d3d);
+}
+
+.modal-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+  font-size: var(--text-lg);
+}
+
+/* 4. Cuerpo del Modal (la parte con scroll) */
+.modal-body {
+  flex-grow: 1; /* Ocupa el espacio sobrante */
+  overflow-y: auto; /* Muestra la barra de scroll vertical SOLO si es necesario */
+  padding: var(--space-3);
+}
+
+/* 5. Pie de página del Modal */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-background-inactive);
+}
+
+/* ================================================================ */
+/* == ESTILOS ESPECÍFICOS PARA EL MODAL DE NUEVO REGISTRO == */
+/* ================================================================ */
+
+#registro-modal .modal-content {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  max-height: 95vh;
+  resize: both;
+  overflow: auto;
+  min-width: 700px;
+  min-height: 600px;
+  max-width: 1800px; /* Ancho máximo aumentado */
+}
+
+#registro-modal #registro-form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+#registro-modal .modal-body {
+  flex-grow: 1;
+  overflow-y: auto;
+  min-height: 0;
+  display: flex; /* Cambiado a flex para el layout de dos columnas */
+  flex-direction: column; /* Asegura el flujo vertical interno */
+}
+
+#registro-modal .card-header,
+#registro-modal .modal-footer {
+  flex-shrink: 0;
+}
+
+/* --- Estilos para la vista previa en dos columnas --- */
+
+.modal-content-grid {
+  display: flex;
+  gap: 20px;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+#registro-dynamic-form-container {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.preview-container {
+  flex: 1;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  background-color: var(--color-background-inactive);
+  display: flex;
+}
+
+.preview-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: #fff;
+}
+
+/* Estilos para los campos de tipo checkbox en los modales */
+.form-group-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: var(--space-2);
+}
+
+.form-group-checkbox input[type='checkbox'] {
+  width: 20px;
+  height: 20px;
+}
+
+.form-group-checkbox label {
+  margin-bottom: 0;
+}
+
+/*==============================================================*/
+/* == SOLUCIÓN DEFINITIVA PARA SCROLL EN MODAL DE RESUMEN == */
+/*==============================================================*/
+
+#report-summary-modal .modal-body {
+  /* 1. Altura Máxima: Esta es la regla más importante.
+     Le decimos al navegador que el cuerpo del modal no puede ocupar más
+     del 85% de la altura de la ventana, restando 150px para dar
+     espacio a la cabecera y el pie de página del modal.
+     Puedes ajustar '150px' si tu cabecera/pie son más grandes o pequeños. */
+  max-height: calc(85vh - 150px);
+
+  /* 2. Overflow Automático: El disparador del scroll.
+     Esto crea la barra de scroll vertical ÚNICAMENTE si el contenido
+     interno es más alto que la 'max-height' que definimos arriba. */
+  overflow-y: auto;
+  
+  /* 3. (Opcional pero recomendado) Pequeño padding a la derecha.
+     Esto evita que la barra de scroll aparezca pegada al contenido. */
+  padding-right: 1em;
+}
+
+
+#report-summary-modal .modal-body {
+  /* Esta es la clave: permite que el cuerpo crezca y se desplace */
+  overflow-y: auto;
+  flex-grow: 1; /* Ocupa el espacio disponible */
+  padding-right: 1rem; /* Espacio para la barra de scroll */
+}
+
+/* Opcional: mejora la visualización del grid en pantallas más pequeñas */
+.resumen-compacto {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}

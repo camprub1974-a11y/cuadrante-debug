@@ -1,0 +1,352 @@
+/* css/views/_service-report-view.css */
+
+/* --- Contenedor Principal de la Vista --- */
+#service-report-view {
+  /* Espacio en la parte inferior para que el footer fijo no oculte contenido */
+  padding-bottom: 100px; 
+}
+
+/* --- Encabezado Principal (Parte de Servicio: [Título]) --- */
+.report-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.25rem;
+  background-color: var(--app-primary-blue);
+  color: #14122f;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+}
+
+#back-to-reports-list-btn {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  background-color: rgb(27 156 252);
+  border-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+#back-to-reports-list-btn > svg {
+  width: 24px !important;
+  height: 24px !important;
+  stroke: white;
+  transition: stroke 0.2s ease;
+}
+
+#back-to-reports-list-btn:hover {
+  background-color: white;
+  transform: translateY(-2px);
+}
+
+#back-to-reports-list-btn:hover svg {
+  stroke: var(--app-primary-blue);
+}
+
+.report-header .title-block {
+  flex-grow: 1;
+  text-align: center;
+  color: #1b9cfc;
+}
+
+.report-header .title-block h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  color: #14122f;
+}
+
+/* --- Estilo general para las tarjetas de la vista --- */
+.card .card-header {
+  background-color: white;
+  color: #334155;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border-color-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.card .card-header h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1b9cfc;
+}
+
+.card-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* --- Resumen de Actuaciones (Nuevo Diseño de Tarjetas con Iconos) --- */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+}
+
+.stat-card.compact {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card.compact:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.stat-card.compact .stat-icon {
+  width: 24px;
+  height: 24px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.stat-card.compact .stat-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.1;
+}
+
+.stat-card.compact .stat-label {
+  display: block;
+  font-size: 0.8rem;
+  color: #475569;
+  margin-top: 4px;
+  line-height: 1.3;
+  min-height: 2.6rem;
+}
+
+/* --- Estilos Unificados para Tareas y Requerimientos --- */
+/* Ajustes a la fila principal del requerimiento */
+.requerimiento-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Alinea al inicio para textos largos */
+  gap: 1.5rem;
+  padding: 1rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.requerimiento-item-row:last-child {
+  border-bottom: none;
+}
+
+.requerimiento-info {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+.requerimiento-info > div {
+  font-size: 0.9em;
+}
+
+.requerimiento-info b {
+  color: var(--color-text-secondary);
+  display: block;
+  font-size: 0.8em;
+  margin-bottom: 2px;
+}
+
+.requerimiento-status-toggle {
+  display: flex;
+  gap: 10px;
+  background-color: #f1f5f9;
+  border-radius: 20px;
+  padding: 4px;
+}
+
+.requerimiento-status-toggle label {
+  padding: 6px 16px;
+  border-radius: 16px;
+  font-size: 0.9em;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.requerimiento-status-toggle input[type="radio"] {
+  display: none;
+}
+
+.requerimiento-status-toggle input[type="radio"]:checked + label {
+  background-color: var(--color-primary);
+  color: white;
+  box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3);
+}
+
+.requerimiento-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* --- Footer de Acciones (Corregido y con z-index superior) --- */
+.report-actions-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+  
+  /* ================================================================ */
+  /* == ESTA ES LA LÍNEA MÁS IMPORTANTE DE LA SOLUCIÓN == */
+  /* Un z-index alto asegura que esté por encima de la cabecera (z-index: 1000)
+  /* y cualquier otro elemento.
+  /* ================================================================ */
+  z-index: 1001; 
+}
+
+.req-main-content {
+  flex-grow: 1;
+}
+
+.req-info-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.req-time {
+  font-weight: 600;
+  font-size: 0.9em;
+  color: var(--app-primary-blue);
+}
+
+.req-requerente {
+  font-size: 0.9em;
+  color: #64748b;
+}
+
+.req-motivo {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.95em;
+  color: #334155;
+}
+
+.req-comentario {
+  margin: 0;
+  font-size: 0.85em;
+  color: #475569;
+  background-color: #f8fafc;
+  border-left: 3px solid var(--app-primary-blue);
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.req-actions-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.75rem;
+}
+
+/*==============================================================*/
+/* == ESTILOS PARA LA EDICIÓN EN LÍNEA DE REQUERIMIENTOS == */
+/*==============================================================*/
+
+.requerimiento-item-row .edit-mode-content .form-group {
+  margin-bottom: 0.75rem;
+}
+
+.requerimiento-item-row .edit-mode-content .form-label {
+  font-size: 0.8em;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.requerimiento-item-row .edit-mode-content textarea.form-control {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--color-border-form);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.9em;
+  resize: vertical;
+}
+
+.requerimiento-item-row .inline-edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+/* EN css/views/_service-report-view.css */
+
+.form-grid-2-col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
+}
+
+/* ====================================================== */
+/* == ESTILOS PARA TABLAS DE DATOS (COMO PARTES DE SERVICIO) == */
+/* ====================================================== */
+
+/* Estilo base para la tabla */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse; /* Une los bordes de las celdas */
+  font-size: 0.9rem;
+}
+
+/* Estilo para las celdas de la cabecera (th) y del cuerpo (td) */
+.styled-table th,
+.styled-table td {
+  /* ✅ LA REGLA MÁS IMPORTANTE: Añade espaciado interno */
+  padding: 0.75rem 1rem;
+  text-align: left; /* Alinea el texto a la izquierda */
+  vertical-align: middle; /* Centra el contenido verticalmente */
+  border-bottom: 1px solid #e2e8f0; /* Línea separadora entre filas */
+}
+
+/* Estilo específico para la cabecera */
+.styled-table th {
+  background-color: #f8fafc; /* Un fondo gris muy claro */
+  font-weight: 600;
+  color: #475569;
+}
+
+/* Estilo para las filas del cuerpo de la tabla */
+.styled-table tbody tr:hover {
+  background-color: #f1f5f9; /* Resalta la fila al pasar el ratón */
+}
+
+/* ✅ REGLAS PARA CONTROLAR EL ANCHO DE LAS COLUMNAS */
+.styled-table th:nth-child(2), /* Columna "Título de la Orden" */
+.styled-table td:nth-child(2) {
+  width: 40%; /* Le damos más espacio a la columna del título */
+}
+
+.styled-table .actions-cell {
+  width: 120px; /* Ancho fijo para la columna de acciones */
+  text-align: center; /* Centramos el botón de acción */
+}

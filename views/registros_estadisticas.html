@@ -1,0 +1,143 @@
+<div id="admin-dashboard-content">
+  <div class="card">
+    <div class="card-header">
+      <h2>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          width="24"
+          height="24"
+          style="vertical-align: middle; margin-right: 8px"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A2.25 2.25 0 011.5 18.75v-6.75c0-.621.504-1.125 1.125-1.125H3.75m12.75 0h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zM12 3v.008h.008V3H12zm0 3v.008h.008V6H12zm0 3v.008h.008V9H12zm0 3v.008h.008V12H12z"
+          />
+        </svg>
+        <span>Panel de Administrador</span>
+      </h2>
+    </div>
+    <div class="card-body">
+      <div class="filter-group">
+        <div class="form-group">
+          <label for="dashboard-date-filter">Filtrar por Periodo</label>
+          <select id="dashboard-date-filter" class="selector">
+            <option value="last7">Últimos 7 días</option>
+            <option value="last30" selected>Últimos 30 días</option>
+            <option value="current_month">Mes Actual</option>
+            <option value="last_month">Mes Anterior</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="card kpi-card">
+      <div class="card-body">
+        <span class="kpi-value" id="stats-total-reports">0</span>
+        <span class="kpi-label">Partes de Servicio</span>
+      </div>
+    </div>
+    <div class="card kpi-card">
+      <div class="card-body">
+        <span class="kpi-value" id="stats-requerimientos-recibidos">0</span>
+        <span class="kpi-label">Requerimientos Recibidos</span>
+      </div>
+    </div>
+    <div class="card kpi-card">
+      <div class="card-body">
+        <span class="kpi-value" id="stats-requerimientos-resueltos">0</span>
+        <span class="kpi-label">Requerimientos Resueltos</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="card">
+      <div class="card-header">
+        <h3>Actuaciones por Tipo</h3>
+      </div>
+      <div class="card-body">
+        <div class="chart-container">
+          <canvas id="actuaciones-chart"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>Requerimientos por Estado</h3>
+      </div>
+      <div class="card-body">
+        <div class="chart-container">
+          <canvas id="requerimientos-chart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="requerimientos-grid">
+    <div class="card">
+      <div class="card-header">
+        <h4>Requerimientos Pendientes</h4>
+      </div>
+      <div class="card-body">
+        <div id="pending-requerimientos-list" class="requerimientos-list">
+          <p class="info-message">No hay requerimientos pendientes.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h4>Últimos Requerimientos Resueltos</h4>
+      </div>
+      <div class="card-body">
+        <div id="resolved-requerimientos-list" class="requerimientos-list">
+          <p class="info-message">No hay requerimientos resueltos recientemente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+  .kpi-card .card-body {
+    text-align: center;
+  }
+  .kpi-value {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    display: block;
+  }
+  .kpi-label {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin-top: var(--space-1);
+  }
+  .charts-grid,
+  .requerimientos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+  .chart-container {
+    position: relative;
+    height: 300px;
+  }
+  .requerimientos-list {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+</style>

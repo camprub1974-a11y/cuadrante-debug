@@ -1,0 +1,72 @@
+<div id="planning-view-content">
+  <div class="card">
+    <div class="card-header">
+      <h2>
+        <i data-feather="clipboard"></i>
+        <span>Gestión de Órdenes de Servicio</span>
+      </h2>
+      <div class="actions-group">
+        <button id="create-order-btn" class="button button-primary">
+          <i data-feather="plus-circle"></i>
+          <span>Crear Orden</span>
+        </button>
+        <button id="ai-generate-order-btn" class="button button-ai-generate" title="Sugiere una orden basada en el cuadrante del día">
+          <i data-feather="zap"></i>
+          <span>Sugerencia IA</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="filter-grid">
+        <div class="form-group">
+          <label for="order-filter-date">Fecha</label>
+          <input type="date" id="order-filter-date">
+        </div>
+
+        <div class="form-group">
+          <label for="order-filter-shift">Turno</label>
+          <select id="order-filter-shift" class="selector">
+            <option value="all">Todos</option>
+            <option value="Mañana">Mañana</option>
+            <option value="Tarde">Tarde</option>
+            <option value="Noche">Noche</option>
+            <option value="Especial">Especial</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="order-filter-status">Estado</label>
+          <select id="order-filter-status" class="selector">
+            <option value="all">Todos</option>
+            <option value="draft">Borrador</option>
+            <option value="assigned">Asignada</option>
+            <option value="in_progress">En Progreso</option>
+            <option value="completed">Completada</option>
+          </select>
+        </div>
+        
+        <div class="filter-actions">
+          <button id="clear-filters-btn" class="button button-secondary" title="Limpiar Filtros">
+            <i data-feather="delete"></i>
+            <span>Limpiar</span>
+          </button>
+          <button id="apply-filters-btn" class="button button-primary" title="Aplicar Filtros">
+            <i data-feather="search"></i>
+            <span>Filtrar</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card no-padding">
+    <div class="card-body">
+      <div id="service-orders-list-container" class="table-container">
+        <p class="info-message">Cargando órdenes de servicio...</p>
+      </div>
+    </div>
+  </div>
+</div>

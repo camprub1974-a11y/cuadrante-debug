@@ -1,0 +1,154 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // --- FUNCIONES DE AYUDA PARA ROLES ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.role == "admin";
+    }
+
+    function isSupervisor() {
+      return isSignedIn() && request.auth.token.role == "supervisor";
+    }
+
+    function isMando() {
+      return isAdmin() || isSupervisor();
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAgentOwner(agentId) {
+      return isSignedIn() && request.auth.token.agentId == agentId;
+    }
+
+    // --- REGLAS PARA COLECCIONES ---
+    match /users/{userId} {
+      allow read, write: if isMando() || isOwner(userId);
+    }
+
+    match /agents/{agentId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+    
+    match /configuration/{docId} {
+      allow read, write: if isAdmin();
+    }
+
+    match /schedules/{scheduleId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    match /permissionTypes/{typeId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    match /markedDates/{dateId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    match /solicitudes/{solicitudId} {
+      allow read: if isMando() || isOwner(resource.data.userId);
+      allow create: if isOwner(request.resource.data.userId);
+      allow update, delete: if isAdmin();
+    }
+
+    match /solicitudes_cambio_turno/{changeId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update: if isAdmin() || isAgentOwner(resource.data.targetAgentId);
+      allow delete: if isAdmin();
+    }
+
+    match /extraordinaryServices/{serviceId} {
+      function isValidService(data) {
+        return data.agentId is string &&
+               data.date is timestamp &&
+               data.hours is number &&
+               data.type is string;
+      }
+      
+      allow read: if isMando() || isAgentOwner(resource.data.agentId);
+      allow create: if isAgentOwner(request.resource.data.agentId) && isValidService(request.resource.data);
+      allow update: if (isMando() || isAgentOwner(resource.data.agentId)) && isValidService(request.resource.data);
+      allow delete: if isAdmin() || isAgentOwner(resource.data.agentId);
+    }
+
+    match /serviceOrders/{orderId} {
+      allow read: if isMando() || (request.auth.token.agentId in resource.data.assigned_agents);
+      allow write: if isMando();
+    }
+
+    match /serviceReports/{reportId} {
+      function isAssignedToReport() {
+        return request.auth.token.agentId in resource.data.assigned_agents;
+      }
+
+      allow read: if isMando() || isAssignedToReport() || (request.auth.token.agentId in get(/databases/$(database)/documents/serviceOrders/$(resource.data.order_id)).data.assigned_agents);
+      allow create: if request.auth.token.agentId in get(/databases/$(database)/documents/serviceOrders/$(request.resource.data.order_id)).data.assigned_agents;
+      allow update: if (isMando() || isAssignedToReport()) && (resource.data.status != 'validated' && resource.data.status != 'closed');
+      allow delete: if isMando();
+
+      match /reportEntries/{entryId} {
+        function isAssignedToParentReport() {
+          return request.auth.token.agentId in get(/databases/$(database)/documents/serviceReports/$(reportId)).data.assigned_agents;
+        }
+        allow read, write: if isMando() || isAssignedToParentReport();
+      }
+
+      match /requerimientos/{requerimientoId} {
+        function isAssignedToParentReport() {
+          return request.auth.token.agentId in get(/databases/$(database)/documents/serviceReports/$(reportId)).data.assigned_agents;
+        }
+        allow read, write: if isMando() || isAssignedToParentReport();
+      }
+    }
+
+    // REGLA PARA EL MÓDULO DE REGISTRO ELECTRÓNICO
+    match /registros/{registroId} {
+      allow read: if isSignedIn();
+      allow write: if false; // La escritura se gestiona vía Cloud Functions
+    }
+    
+    // REGLA PARA LAS PLANTILLAS DE DOCUMENTOS
+    match /documentTemplates/{templateId} {
+      allow read, write: if isAdmin();
+    }
+  }
+}
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Regla para permitir la lectura pública o a usuarios autenticados de los assets
+    match /croquis_assets/{allPaths=**} {
+      allow read: if true;
+    }
+    
+    match /logo-ayto.png {
+      allow read: if true;
+    }
+
+    // REGLA AÑADIDA PARA LA CARPETA DE CROQUIS
+    // Permite la escritura (subida) de archivos en la carpeta 'sketches'
+    match /sketches/{fileName} {
+      // Condición: Solo un usuario autenticado puede subir un archivo.
+      allow write: if request.auth != null
+                   // Y el archivo debe ser una imagen (jpeg o png)
+                   && request.resource.contentType.matches('image/(jpeg|png)')
+                   // Y el tamaño debe ser menor a 5MB para evitar abusos.
+                   && request.resource.size < 5 * 1024 * 1024;
+
+      // Permite la lectura a cualquier usuario autenticado para poder ver los croquis guardados.
+      allow read: if request.auth != null;
+    }
+  }
+}

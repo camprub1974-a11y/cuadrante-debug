@@ -1,0 +1,48 @@
+/* css/components/_tables.css */
+
+.table-container {
+  width: 100%;
+  overflow-x: auto; /* Permite scroll horizontal en tablas anchas */
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table thead.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.data-table th {
+  background-color: var(--color-bg-table-header); /* #F0F2F5 */
+  padding: 12px var(--space-2); /* 12px vertical, 16px horizontal */
+  text-align: left;
+  font-size: var(--text-sm); /* 14px */
+  font-weight: 400; /* Regular */
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border); /* #E2E5E9 */
+}
+
+.data-table td {
+  padding: 12px var(--space-2); /* 12px vertical, 16px horizontal */
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-size: var(--text-sm); /* 14px */
+  line-height: var(--leading-tight);
+}
+
+/* Filas alternas */
+.data-table tbody tr:nth-child(even) {
+  background-color: var(--color-bg-table-row-alt); /* #FBFCFD */
+}
+
+.data-table tbody tr:hover {
+  background-color: var(--color-background-hover);
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}

@@ -1,0 +1,97 @@
+/* ============================================================= */
+/* == ESTILOS DEFINITIVOS PARA LA VISTA DE REGISTRO ELECTRÓNICO == */
+/* ============================================================= */
+
+/* --- 1. Alineación Horizontal de Filtros y sus Botones --- */
+
+/* Contenedor principal de los filtros */
+#registro-view-content .filter-group-horizontal {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: flex-end !important;
+    gap: 1rem !important;
+}
+
+/* Contenedor de los botones "Buscar" y "Limpiar" para que estén en línea */
+#registro-view-content .filter-actions {
+    display: flex !important;
+    gap: 0.5rem !important;
+}
+
+/* --- 2. Botones de Acción en la Tabla (Iconos) --- */
+
+/* --- Estilos para los iconos de acción de la tabla (VERSIÓN ROBUSTA) --- */
+
+/* Contenedor de los iconos en la celda */
+#registros-list-container .actions-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Estilo para CADA botón dentro de la celda de acciones */
+#registros-list-container .actions-cell button {
+    /* 1. Reseteo explícito de los estilos de botón */
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    color: inherit !important;
+    font-size: inherit !important;
+
+    /* 2. Se define la apariencia del contenedor del icono */
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s ease;
+}
+
+/* 3. Estilo para el icono SVG que Feather genera DENTRO del botón */
+#registros-list-container .actions-cell button svg {
+    width: 18px;
+    height: 18px;
+    stroke: #555; /* Color gris oscuro por defecto */
+    transition: stroke 0.2s ease;
+}
+
+/* 4. Efecto al pasar el ratón por encima */
+#registros-list-container .actions-cell button:hover {
+    background-color: #e2e8f0 !important; /* Fondo gris muy sutil */
+}
+
+#registros-list-container .actions-cell button:hover svg {
+    stroke: #007bff; /* Color azul primario */
+}
+
+.status-badge {
+  padding: 0.25em 0.6em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 20px;
+  text-transform: capitalize;
+}
+
+.status-badge.status-pendiente {
+  background-color: #fffbeb;
+  color: #b45309;
+}
+
+.status-badge.status-finalizado {
+  background-color: #f0fdf4;
+  color: #166534;
+}
+
+.status-badge.status-revisado,
+.status-badge.status-recepcionado {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+}
+
+.status-badge.status-default {
+  background-color: #f1f5f9;
+  color: #475569;
+}

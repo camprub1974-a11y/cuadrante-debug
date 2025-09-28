@@ -1,0 +1,110 @@
+/* css/views/_planning-view.css */
+
+/*
+ * Estilos para los botones de acción en la tabla de órdenes de servicio.
+ * Los selectores se han hecho más específicos para evitar conflictos.
+ */
+#planning-view-content .data-table .actions-cell {
+  display: flex; /* Esto fuerza la alineación flexible */
+  justify-content: flex-start; /* Alinea los elementos a la izquierda como en la vista de Registro */
+  align-items: center;
+  gap: 0.5rem; /* Espacio entre los iconos */
+}
+
+/* Regla para los iconos de Material Icons dentro de los botones de acción */
+#planning-view-content .data-table .actions-cell .icon-button .material-icons {
+  color: #e53e3e !important; /* Añadimos !important para forzar la aplicación */
+  font-size: 1.25rem;
+  transition: color 0.2s ease;
+}
+
+/* Colores de hover para cada botón */
+#planning-view-content
+  .data-table
+  .actions-cell
+  .icon-button[data-action='edit']:hover
+  .material-icons {
+  color: #c53030 !important; /* Rojo más oscuro para el hover, como en Registro */
+}
+
+#planning-view-content
+  .data-table
+  .actions-cell
+  .icon-button[data-action='assign']:hover
+  .material-icons {
+  color: var(--success-color) !important; /* Usar la variable para la consistencia del color */
+}
+
+#planning-view-content
+  .data-table
+  .actions-cell
+  .icon-button[data-action='delete']:hover
+  .material-icons {
+  color: var(--danger-color) !important; /* Usar la variable para la consistencia del color */
+}
+
+/* --- Estilos para la píldora de estado en la tabla --- */
+.status-pill {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Colores de las píldoras de estado */
+.status-draft {
+  background-color: #e2e8f0;
+  color: #4a5568;
+}
+
+.status-assigned {
+  background-color: #feebc8;
+  color: #9c4221;
+}
+
+.status-in_progress {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.status-completed {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.status-unknown {
+  background-color: #fbd38d;
+  color: #9c4221;
+}
+
+.modal-body .empty-state-icon {
+  color: #1b9cfc; /* o el color que prefieras */
+}
+
+/* ✅ AÑADE ESTOS ESTILOS PARA EL BOTÓN DE IA */
+.button-ai-generate {
+  background: linear-gradient(45deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border: none;
+}
+
+.button-ai-generate:hover {
+  opacity: 0.9;
+  box-shadow: var(--shadow-md);
+}
+
+.order-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+#view-order-agents-list {
+  list-style: disc;
+  padding-left: var(--space-3);
+}

@@ -1,0 +1,38 @@
+/* css/views/_activity-feed.css */
+
+/* Estilos existentes */
+#activity-feed-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#activity-feed-container li {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  font-size: 0.9em;
+  color: var(--app-text-primary);
+}
+
+#activity-feed-container li:last-child {
+  margin-bottom: 0;
+}
+
+/* ======================= NUEVOS ESTILOS ======================= */
+
+/* Estilo para la tarjeta de alertas */
+.card--alert {
+  background-color: var(--alert-card-bg);
+  border: 1px solid var(--marked-date-yellow-border); /* Reutilizamos el borde amarillo para consistencia */
+}
+
+/* Estilo para el título H4 dentro de la tarjeta de alertas */
+.card--alert h4 {
+  padding-bottom: 0.75rem; /* Espacio para la línea */
+  border-bottom: 2px solid var(--alert-title-border-color); /* Línea roja debajo del título */
+  margin-bottom: 1rem; /* Espacio entre la línea y el contenido */
+}
+/* ============================================================== */

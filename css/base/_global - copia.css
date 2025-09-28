@@ -1,0 +1,36 @@
+/* css/base/_global.css */
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Contenedor principal de la aplicación, se asegura de ocupar el espacio restante */
+#app-container,
+#app-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Mantenemos el contenedor de la vista principal */
+.container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: var(--space-4); /* 32px */
+  flex-grow: 1;
+}

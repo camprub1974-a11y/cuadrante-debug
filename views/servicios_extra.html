@@ -1,0 +1,138 @@
+<div id="extra-services-view-content">
+  <div class="view-layout-grid">
+    <div class="main-column">
+      <div class="card">
+        <div class="card-header">
+          <h2><i data-feather="clock"></i><span>Gestión de Servicios Extraordinarios</span></h2>
+          <div class="actions-group">
+            <button id="generate-pdf-report-btn" class="button button-primary">
+              <i data-feather="file-text"></i><span>Generar Informe</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="extra-services-admin-view" class="hidden">
+        <div class="card">
+  <div class="card-header">
+    <h3><i data-feather="filter"></i><span>Filtros de Búsqueda</span></h3>
+  </div>
+  <div class="card-body">
+    <div class="filter-grid">
+
+      <div class="form-group">
+        <label for="admin-service-filter-agent">Agente</label>
+        <select id="admin-service-filter-agent" class="selector"></select>
+      </div>
+
+      <div class="form-group">
+        <label for="admin-service-filter-type">Tipo</label>
+        <select id="admin-service-filter-type" class="selector"></select>
+      </div>
+
+      <div class="form-group">
+        <label for="admin-service-filter-start-date">Desde</label>
+        <input type="date" id="admin-service-filter-start-date" />
+      </div>
+      <div class="form-group">
+        <label for="admin-service-filter-end-date">Hasta</label>
+        <input type="date" id="admin-service-filter-end-date" />
+      </div>
+
+      <div class="filter-actions">
+        <button id="admin-service-clear-filters-btn" class="button button-secondary">
+          <span>Limpiar</span>
+        </button>
+        <button id="admin-service-apply-filters-btn" class="button button-primary">
+          <span>Filtrar</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+        <div class="card no-padding">
+          <div class="card-body">
+            <div id="admin-services-table-container" class="table-container"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="extra-services-guard-view" class="hidden">
+        <div class="card">
+          <div class="card-body">
+            <div id="extra-services-calendar-container">
+              <div id="extra-services-calendar"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2>
+              <i data-feather="list"></i>
+              <span>Registro de servicios del mes</span>
+            </h2>
+          </div>
+          <div class="card-body no-padding">
+            <div id="agent-services-list-container" class="table-container"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2>
+              <i data-feather="bar-chart-2"></i>
+              <span>Resumen del mes visualizado</span>
+            </h2>
+          </div>
+          <div class="card-body">
+            <div id="agent-stats-container" class="stats-grid"></div>
+            <div
+              class="chart-container"
+              style="position: relative; height: 250px; margin-top: 1.5rem"
+            >
+              <canvas id="agent-stats-chart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-column">
+  <div class="card">
+    <div class="card-header">
+      <h4>Estadísticas de Servicios</h4>
+    </div>
+    <div class="card-body">
+      
+      <div class="stats-filter-grid">
+        <div class="form-group">
+          <label for="extra-stats-year-select">Año</label>
+          <select id="extra-stats-year-select" class="selector"></select>
+        </div>
+        <div class="form-group">
+          <label for="extra-stats-month-select">Mes</label>
+          <select id="extra-stats-month-select" class="selector"></select>
+        </div>
+        <div class="form-group">
+          <label for="extra-stats-agent-select">Agente</label>
+          <select id="extra-stats-agent-select" class="selector"></select>
+        </div>
+        <div class="form-group">
+          <label for="extra-stats-type-select">Tipo</label>
+          <select id="extra-stats-type-select" class="selector"></select>
+        </div>
+      </div>
+
+      <div class="stats-total-card">
+        <span class="stat-label">Coste Total Estimado</span>
+        <span id="extra-stats-total-price" class="stat-value">0.00€</span>
+      </div>
+
+      <div class="chart-container" style="position: relative; height: 220px; width: 100%;">
+        <canvas id="extra-stats-chart-admin"></canvas>
+      </div>
+
+    </div>
+  </div>
+</div>

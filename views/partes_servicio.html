@@ -1,0 +1,105 @@
+<div id="reports-list-view" class="view-content">
+  <div class="card">
+    <div class="card-header">
+      <h2>
+        <i data-feather="file-text"></i>
+        <span>Partes de Servicio</span>
+      </h2>
+      <div id="admin-view-controls" class="actions-group" style="display: none">
+        <div class="view-toggle">
+          <button id="show-reports-list-btn" class="toggle-button active">Listado</button>
+          <button id="show-reports-calendar-btn" class="toggle-button">Calendario</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="admin-view-container" class="hidden">
+      <div class="card-body">
+        <div class="filter-grid">
+  <div class="form-group">
+    <label for="report-filter-year">Año</label>
+    <select id="report-filter-year" class="selector"></select>
+  </div>
+  <div class="form-group">
+    <label for="report-filter-month">Mes</label>
+    <select id="report-filter-month" class="selector"></select>
+  </div>
+  <div class="form-group">
+    <label for="report-filter-agent">Agente</label>
+    <select id="report-filter-agent" class="selector"></select>
+  </div>
+  <div class="form-group">
+    <label for="report-filter-status">Estado</label>
+    <select id="report-filter-status" class="selector">
+      <option value="all" selected>Todos</option>
+      <option value="pending_review">Pendiente de Revisión</option>
+      <option value="open">Abierto</option>
+      <option value="validated">Validado</option>
+      <option value="returned">Devuelto</option>
+      <option value="closed">Cerrado</option>
+    </select>
+  </div>
+  <div class="filter-actions">
+    <button id="clear-report-filters-btn" class="button button-secondary" title="Limpiar Filtros">
+      <i data-feather="delete"></i>
+      <span>Limpiar</span>
+    </button>
+    <button id="apply-report-filters-btn" class="button button-primary" title="Aplicar Filtros">
+      <i data-feather="search"></i>
+      <span>Filtrar</span>
+    </button>
+  </div>
+</div>
+        <hr class="subtle-divider" />
+        <div id="reports-list-content" class="reports-sub-view">
+          <div id="reports-list-container" class="table-container"></div>
+        </div>
+        <div id="reports-calendar-content" class="reports-sub-view hidden">
+          <div id="service-reports-calendar"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="agent-view-container" class="hidden">
+      <div class="card-body">
+        <h3 class="view-subtitle">Parte Activo del Día</h3>
+        <div id="agent-reports-list-container" class="reports-grid"></div>
+
+        <hr class="subtle-divider" />
+
+        <h3 class="view-subtitle">Registro de Partes Validados</h3>
+
+        <div class="filter-group agent-log-filters">
+          <div class="form-group">
+            <label for="agent-log-filter-year">Año</label>
+            <select id="agent-log-filter-year" class="selector"></select>
+          </div>
+          <div class="form-group">
+            <label for="agent-log-filter-month">Mes</label>
+            <select id="agent-log-filter-month" class="selector"></select>
+          </div>
+          <div class="form-group">
+            <label for="agent-log-filter-agent">Agente</label>
+            <select id="agent-log-filter-agent" class="selector"></select>
+          </div>
+          <div class="form-group">
+            <label for="agent-log-filter-keyword">Palabra Clave (en Requerimientos)</label>
+            <input
+              type="text"
+              id="agent-log-filter-keyword"
+              class="selector"
+              placeholder="Ej: accidente, robo..."
+            />
+          </div>
+          <div class="filter-actions">
+            <button id="agent-log-apply-filters-btn" class="button button-primary">
+              <i data-feather="search"></i><span>Filtrar</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="agent-validated-reports-container" class="table-container"></div>
+      </div>
+    </div>
+  </div>
+</div>

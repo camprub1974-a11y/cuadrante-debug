@@ -1,0 +1,81 @@
+<div id="service-report-view" class="view-content">
+  <div class="report-header">
+    <button
+      id="back-to-reports-list-btn"
+      class="button button-icon button-secondary"
+      title="Volver"
+    >
+      <i data-feather="arrow-left"></i>
+    </button>
+    <div class="title-block">
+      <h2 id="report-view-title">Parte de Servicio</h2>
+    </div>
+    <div class="card-header-meta">
+      <span id="report-order-ref" class="reg-number"></span>
+      <span id="report-order-status" class="status-badge"></span>
+    </div>
+  </div>
+
+  <div class="card report-info-card">
+    <div class="card-body">
+      <div class="report-details-grid">
+        <div><strong>Fecha:</strong> <span id="report-order-date"></span></div>
+        <div><strong>Turno:</strong> <span id="report-order-shift"></span></div>
+        <div><strong>Responsable:</strong> <span id="report-order-responsible"></span></div>
+        <div style="grid-column: 1 / -1">
+          <strong>Agentes:</strong> <span id="report-order-agents"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="report-instructions-card-container">
+    <div class="card-header">
+      <h4>Instrucciones Generales de la Orden</h4>
+    </div>
+    <div class="card-body">
+      <p id="report-order-instructions" style="white-space: pre-wrap; margin: 0"></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h4>Tareas pendientes</h4>
+    </div>
+    <div class="card-body">
+      <div id="checklist-items-container" class="checklist-list"></div>
+    </div>
+  </div> 
+  
+  <div class="card" id="report-requerimientos-section"> 
+  <div class="card-header">
+    <h4>Requerimientos</h4>
+    <div class="actions-group">
+      <button id="add-requerimiento-btn" class="button button-secondary button-icon" title="Añadir Requerimiento">
+        <i data-feather="plus"></i>
+      </button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div id="requerimientos-list-container" class="requerimientos-list"></div>
+  </div>
+</div>
+      
+  <div class="card" id="report-summary-card">
+    <div class="card-header">
+      <h4>Resumen de Actuaciones</h4>
+      <div class="actions-group">
+        <button id="edit-summary-btn" class="button button-secondary button-icon" title="Editar Resumen">
+          <i data-feather="edit"></i>
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div id="summary-view-container" class="summary-grid">
+        <p class="empty-state-text">No hay actuaciones registradas en el resumen.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="report-actions-footer" class="report-actions-footer"></div>
+</div>

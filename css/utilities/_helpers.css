@@ -1,0 +1,20 @@
+/* css/utilities/_helpers.css */
+.hidden {
+  display: none !important;
+}
+.hidden-initial {
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* Transición para el cambio de vista */
+#schedule-content,
+#extra-services-view {
+  transition: opacity 0.5s ease-in-out;
+}
+#schedule-content.fade-out,
+#extra-services-view.fade-out {
+  opacity: 0;
+}

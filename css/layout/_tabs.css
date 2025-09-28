@@ -1,0 +1,93 @@
+/* css/layout/_tabs.css */
+
+.module-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: var(--color-primary);
+  padding: 0 var(--space-1);
+  gap: var(--space-1); /* Añade un pequeño espacio entre las pestañas */
+}
+
+/* ✅ CORRECCIÓN PRINCIPAL: Estilos para las pestañas dentro de la barra azul */
+.module-nav .module-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 8px 16px; /* Ajuste de padding para un look más compacto */
+  font-family: var(--font-primary);
+  font-size: 15px; /* Ligeramente más pequeño para que quepan más pestañas */
+  font-weight: 600; /* Semi-bold para mejor legibilidad */
+  text-decoration: none;
+  border-radius: var(--border-radius-md);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: all var(--transition-fast);
+
+  /* Color base para pestañas inactivas */
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.75); /* Blanco semitransparente */
+}
+
+/* Los iconos heredan el color del texto, así que ajustamos el color del trazo (stroke) */
+.module-nav .module-tab svg {
+  stroke: currentColor;
+}
+
+/* Efecto al pasar el ratón por encima de una pestaña inactiva */
+.module-nav .module-tab:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white; /* El texto y el icono se vuelven blancos opacos */
+}
+
+/* Estilos para la pestaña ACTIVA */
+.module-nav .module-tab.active {
+  background-color: white;
+  color: var(--color-primary); /* Texto e icono en color azul primario */
+  box-shadow: var(--shadow-sm);
+}
+
+/* El pseudo-elemento 'after' ya no es necesario con este diseño */
+.module-tab.active::after {
+  display: none;
+}
+
+/* --- Menú Desplegable de "Registro" (sin cambios, esta parte es correcta) --- */
+
+.module-tab-dropdown-container {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 100;
+  background-color: var(--color-bg-card, white);
+  border-radius: var(--border-radius-md, 8px);
+  box-shadow: var(--shadow-dropdown);
+  padding: var(--space-1);
+  min-width: 200px;
+  list-style: none;
+  margin: 0;
+}
+
+.module-tab-dropdown-container:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu .dropdown-item {
+  display: block;
+  padding: var(--space-1) var(--space-2);
+  color: var(--color-text);
+  text-decoration: none;
+  border-radius: var(--border-radius-sm);
+  white-space: nowrap;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: var(--color-background-hover);
+  color: var(--color-primary);
+}

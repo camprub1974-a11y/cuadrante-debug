@@ -1,0 +1,63 @@
+<div id="identificaciones-view-content">
+  <div class="card">
+    <div class="card-header">
+      <h2><i data-feather="users"></i><span>Módulo de Identificaciones</span></h2>
+    </div>
+    <div class="card-body no-padding">
+      <div class="sub-nav-tabs">
+        <button class="sub-nav-tab active" data-subview="personas">Personas</button>
+        <button class="sub-nav-tab" data-subview="vehiculos">Vehículos</button>
+        <button class="sub-nav-tab" data-subview="establecimientos">Establecimientos</button>
+      </div>
+
+      <!-- PERSONAS: solo campo de búsqueda, sin botón filtrador -->
+      <div id="personas-subview" class="sub-view active">
+        <div class="view-header">
+          <h3>Listado de Personas</h3>
+          <div class="filter-group">
+            <input type="search" id="personas-search-input" placeholder="Buscar por DNI, nombre, mote...">
+            <!-- ELIMINADO el botón de búsqueda -->
+          </div>
+          <div class="actions-group">
+            <button id="create-persona-btn" class="button button-primary"><i data-feather="plus"></i><span>Nueva Persona</span></button>
+          </div>
+        </div>
+        <div id="personas-list-container" class="table-container"></div>
+      </div>
+
+      <!-- VEHICULOS: diseño moderno con el combo input + botón -->
+      <div id="vehiculos-subview" class="sub-view hidden">
+        <div class="view-header improved">
+          <h3>Listado de Vehículos</h3>
+          <div class="search-action-group">
+            <div class="search-box">
+              <input type="search" id="vehiculos-search-input" placeholder="Buscar por matrícula, marca o modelo...">
+              <button id="vehiculos-search-btn" class="search-btn" type="button">
+                <i data-feather="search"></i>
+              </button>
+            </div>
+            <button id="create-vehiculo-btn" class="button button-primary">
+              <i data-feather="plus"></i><span>Nuevo Vehículo</span>
+            </button>
+          </div>
+        </div>
+        <div id="vehiculos-list-container" class="table-container"></div>
+      </div>
+
+      <!-- ESTABLECIMIENTOS: solo campo de búsqueda, sin botón filtrador -->
+      <div id="establecimientos-subview" class="sub-view hidden">
+        <div class="view-header">
+          <h3>Listado de Establecimientos</h3>
+          <div class="filter-group">
+            <input type="search" id="establecimientos-search-input" placeholder="Buscar por CIF, nombre, dirección...">
+            <!-- ELIMINADO el botón de búsqueda -->
+          </div>
+          <div class="actions-group">
+            <button id="create-establecimiento-btn" class="button button-primary"><i data-feather="plus"></i><span>Nuevo Establecimiento</span></button>
+          </div>
+        </div>
+        <div id="establecimientos-list-container" class="table-container"></div>
+      </div>
+    </div>
+  </div>
+</div>

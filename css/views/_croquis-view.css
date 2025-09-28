@@ -1,0 +1,148 @@
+/* css/views/_croquis-view.css */
+
+/* Contenedor del modal */
+#croquis-modal .modal-content.extra-large-fluid {
+  max-width: 95vw;
+  width: 1600px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 95vh;
+}
+
+/* El formulario es el contenedor principal y debe ser flexible */
+#croquis-form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Ocupa todo el espacio vertical del modal */
+  height: 100%;
+}
+
+/* Cabecera principal (título) */
+#croquis-modal .croquis-header {
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: #f8fafc;
+  flex-shrink: 0; /* Evita que se encoja */
+}
+
+#croquis-modal .croquis-header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Sub-cabecera (datos y acciones) */
+#croquis-modal .croquis-sub-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: #f8fafc;
+  flex-shrink: 0;
+}
+
+/* Contenedor para los campos de datos */
+.croquis-data-inputs {
+  display: flex;
+  gap: 1rem;
+  flex-grow: 1;
+  flex-wrap: wrap;
+}
+
+.croquis-data-inputs .form-group {
+  margin: 0;
+  flex: 1 1 150px; /* Base de 150px, permite crecer */
+}
+
+.croquis-data-inputs label {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+.croquis-data-inputs input,
+.croquis-data-inputs select,
+.croquis-data-inputs textarea {
+  width: 100%;
+  margin: 0;
+}
+
+/* Grupo de botones de acción */
+.croquis-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+#croquis-file-input {
+  display: none; /* Mantiene el input de archivo oculto */
+}
+
+/* Contenedor del Iframe */
+.croquis-iframe-container {
+  flex-grow: 1; /* ✅ CRUCIAL: Hace que el iframe ocupe el resto del espacio */
+  display: flex;
+  padding: 1.5rem;
+  background-color: #f0f2f5;
+}
+
+#croquis-iframe {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+.form-group-full-width {
+  flex-basis: 100%; /* Para que la leyenda ocupe toda la fila */
+}
+
+/* Hacemos que el formulario sea el contenedor de referencia para la capa */
+#croquis-form {
+  position: relative;
+}
+
+/* Estilos para la nueva capa interna */
+.modal-inner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* ✅ Opacidad aumentada a 0.95 para mayor contraste */
+  background-color: rgba(30, 41, 59, 0.95);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+}
+
+/* Usamos un selector más específico (#capture-overlay .capture-instructions) para aumentar la prioridad */
+#capture-overlay .capture-instructions {
+  background-color: transparent;
+  text-align: center;
+  box-shadow: none;
+  max-width: 500px;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+}
+
+/* Forzamos el color blanco en todos los elementos de texto y el icono dentro del cuadro de instrucciones */
+#capture-overlay .capture-instructions h2,
+#capture-overlay .capture-instructions p,
+#capture-overlay .capture-instructions strong,
+#capture-overlay .capture-instructions .material-icons {
+  color: white !important; /* ✅ Usamos !important como medida definitiva para garantizar la anulación */
+}
+
+/* Estilo adicional para el icono */
+#capture-overlay .capture-instructions .material-icons {
+  font-size: 48px;
+  margin-bottom: 1rem;
+}
