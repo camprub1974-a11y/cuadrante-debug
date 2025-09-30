@@ -5,6 +5,7 @@ import { initializeCroquisModal, openCroquisModal } from './croquisModal.js';
 import { getSketches, generateSketchPdf, deleteSketch, getSketchById } from '../dataController.js';
 import { formatDate } from '../utils.js';
 import { currentUser } from '../state.js';
+import Konva from 'konva';
 
 let listContainer, filterLugar, filterFecha, filterImplicados, applyFiltersBtn, clearFiltersBtn;
 let isInitialized = false;

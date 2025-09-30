@@ -144,11 +144,24 @@ function populateFilters() {
 }
 
 function getCurrentFilters() {
-  return {
-    interesado: document.getElementById('registro-filter-interesado')?.value?.trim() || null,
-    fecha: document.getElementById('registro-filter-date')?.value || null,
-    tipo: document.getElementById('registro-filter-type')?.value || null
-  };
+  const filters = {}; // Creamos un objeto vacío
+
+  const interesado = document.getElementById('registro-filter-interesado')?.value?.trim();
+  const fecha = document.getElementById('registro-filter-date')?.value;
+  const tipo = document.getElementById('registro-filter-type')?.value;
+
+  // Solo añadimos una propiedad al objeto si tiene un valor real
+  if (interesado) {
+    filters.interesado = interesado;
+  }
+  if (fecha) {
+    filters.fecha = fecha;
+  }
+  if (tipo) {
+    filters.tipo = tipo;
+  }
+
+  return filters;
 }
 
 function clearFiltersAndRender() {
@@ -201,16 +214,26 @@ async function handleSaveEntrada(event) {
 }
 
 async function loadAndRenderRegistros() {
+  console.log("--- INICIANDO CARGA DE REGISTROS ---"); // CHIVATO DE INICIO
   showLoading('Cargando registros...');
   try {
     const filters = getCurrentFilters();
     filters.direction = currentSubview;
+    
+    // ✅ CHIVATO 1: Ver qué filtros se están enviando al backend
+    console.log("CHIVATO 1: Filtros enviados al backend:", filters);
+
     const registros = await getRegistros(filters);
+    
+    // ✅ CHIVATO 2: Ver qué respuesta llega desde el backend
+    console.log("CHIVATO 2: Registros recibidos del backend:", registros);
+
     renderRegistrosTable(registros);
   } catch(error) {
-    displayMessage(`Error al cargar registros: ${error.message}`, 'error');
+      console.error("ERROR en loadAndRenderRegistros:", error); // CHIVATO DE ERROR
+      displayMessage(`Error al cargar registros: ${error.message}`, 'error');
   } finally {
-    hideLoading();
+      hideLoading();
   }
 }
 
@@ -261,10 +284,12 @@ function renderRegistrosTable(registros) {
   html += `</tbody></table>`;
   container.innerHTML = html;
 
+  // ✅ LÍNEA CRÍTICA AÑADIDA: Dibuja los iconos después de crear la tabla.
   if (window.feather) {
     feather.replace();
   }
 }
+
 
 // --- ACCIONES DE LA TABLA ---
 

@@ -12,7 +12,7 @@ const db = admin.firestore();
 // Función para subir el documento
 async function uploadTemplate() {
   try {
-    const docRef = db.doc('documentTemplates/Y2jqQALK1F7aIjbmfxJ8');
+    const docRef = db.doc('documentTemplates/aMTklbKuGRj8OPJW3CP8');
     await docRef.set(docData, { merge: true });
     console.log('Documento subido con éxito.');
   } catch (err) {

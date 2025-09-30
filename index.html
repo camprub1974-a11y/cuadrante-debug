@@ -16,11 +16,6 @@
       rel="stylesheet"
     />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://unpkg.com/konva@9.3.13/konva.min.js"></script>
   </head>
   <body>
     <div id="auth-container">
@@ -2096,35 +2091,28 @@
 
         <div class="modal-body">
           <div id="registro-modal-content-wrapper" class="modal-content-grid">
-            
             <div id="registro-dynamic-form-container">
-              
-              <div class="form-group">
-                <label class="form-label" for="registro-type-select">Tipo de Documento</label>
-                <select id="registro-type-select" class="selector" required>
-                  <option value="">-- Selecciona un tipo --</option>
-                  <option value="informe">Informe</option>
-                  <option value="acta">Acta</option>
-                  <option value="atestado">Atestado</option>
-                  <option value="oficio">Oficio</option>
-                  <option value="estadillo">Estadillo</option>
-                </select>
-              </div>
-
-              <div id="registro-template-selector-container" class="form-group hidden">
-                <label class="form-label" for="registro-template-select">Usar Plantilla</label>
-                <select id="registro-template-select" class="selector"></select>
-              </div>
-              
-              <div id="template-fields-container">
+              <div id="type-select-step">
+                <div class="form-group">
+                  <label class="form-label" for="registro-type-select">Tipo de Documento</label>
+                  <select id="registro-type-select" class="selector" required>
+                    <option value="">-- Selecciona un tipo --</option>
+                    <option value="informe">Informe</option>
+                    <option value="acta">Acta</option>
+                    <option value="atestado">Atestado</option>
+                    <option value="oficio">Oficio</option>
+                    <option value="estadillo">Estadillo</option>
+                  </select>
                 </div>
-
+              </div>
+              
+              <div id="template-select-step" class="hidden">
+                </div>
             </div>
-            
+
             <div id="registro-preview-container" class="preview-container">
               <iframe id="preview-iframe" class="preview-iframe"></iframe>
             </div>
-
           </div>
         </div>
 
@@ -2137,26 +2125,28 @@
       </form>
     </div>
   </div>
-    </template> <div id="template-preview-modal" class="modal-overlay hidden">
-      <div class="modal-content card large">
-        <div class="card-header">
-          <div class="modal-title">
-            <i data-feather="eye"></i>
-            <span id="preview-modal-title">Previsualización de Plantilla</span>
-          </div>
-          <button class="icon-button close-button">
-            <i data-feather="x"></i>
-          </button>
-        </div>
-        <div class="modal-body">
-          <iframe id="preview-iframe" style="width: 100%; height: 70vh; border: 1px solid #ccc;"></iframe>
-        </div>
+</template>
+
+<div id="template-preview-modal" class="modal-overlay hidden">
+  <div class="modal-content card large">
+    <div class="card-header">
+      <div class="modal-title">
+        <i data-feather="eye"></i>
+        <span id="preview-modal-title">Previsualización de Plantilla</span>
       </div>
+      <button class="icon-button close-button">
+        <i data-feather="x"></i>
+      </button>
     </div>
-    <script type="module" src="/js/main.js"></script>
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script>
-      feather.replace();
-    </script>
-  </body>
+    <div class="modal-body">
+      <iframe id="preview-iframe" style="width: 100%; height: 70vh; border: 1px solid #ccc;"></iframe>
+    </div>
+  </div>
+</div>
+<script type="module" src="/js/main.js"></script>
+<script src="https://unpkg.com/feather-icons"></script>
+<script>
+  feather.replace();
+</script>
+</body>
 </html>

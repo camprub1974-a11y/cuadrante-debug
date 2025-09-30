@@ -3,6 +3,7 @@
 import { setScheduleData, setMarkedDatesForMonth, currentUser } from './state.js';
 import { showLoading, hideLoading, displayMessage } from './ui/viewManager.js';
 import { getScheduleForMonth, getMarkedDates } from './dataController.js';
+import Chart from 'chart.js/auto';
 
 // ✅ 1. Añadimos una variable para guardar la instancia del gráfico
 let statsChart = null;

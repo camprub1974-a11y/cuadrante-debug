@@ -46,40 +46,55 @@ function setupEventListeners() {
   const viewContent = document.getElementById('plantillas-view-content');
   if (!viewContent) return;
 
-  // Listener principal para toda la vista
   viewContent.addEventListener('click', async (event) => {
     const button = event.target.closest('button');
     if (!button) return;
 
-    // --- Lógica para mostrar/ocultar el formulario ---
-    if (button.id === 'toggle-template-form-btn') {
-      openFormForCreate();
-      return;
-    }
-    if (button.id === 'cancel-template-form-btn') {
-      closeForm();
+    // CHIVATO 1: Para ver si el clic se detecta
+    console.log("--- CHIVATO 1: Clic detectado en la vista de plantillas ---", button); 
+
+    // Botón "Nueva Plantilla"
+    if (button.id === 'create-template-btn') {
+      openTemplateEditorModal(loadAndRenderTemplates);
       return;
     }
 
     const recordId = event.target.closest('tr')?.dataset.id;
     if (!recordId) return;
 
-    // --- Lógica para los botones de la tabla ---
-    if (button.classList.contains('button-edit')) {
-      await openFormForEdit(recordId);
-    }
-    if (button.classList.contains('button-duplicate')) {
-      handleDuplicateTemplateClick(recordId);
-    }
-    if (button.classList.contains('button-delete')) {
-      handleDeleteTemplateClick(recordId);
-    }
-    // El botón de previsualización se podría reimplementar si es necesario,
-    // pero por ahora lo hemos simplificado.
-  });
+    showLoading('Cargando datos de la plantilla...');
+    try {
+      const templates = await getDocumentTemplates();
+      const templateData = templates.find(t => t.id === recordId);
 
-  // Listener para el envío del formulario
-  templateForm.addEventListener('submit', handleFormSubmit);
+      if (!templateData) {
+        throw new Error('No se pudo encontrar la plantilla seleccionada.');
+      }
+
+      // --- Lógica de depuración para el botón PREVISUALIZAR ---
+      if (button.classList.contains('preview-template-btn')) {
+        // CHIVATO 2: Para ver si se identifica el botón correcto
+        console.log("--- CHIVATO 2: Botón de previsualizar reconocido. ---");
+        // CHIVATO 3: Para ver qué datos se van a enviar al modal
+        console.log("--- CHIVATO 3: Datos de la plantilla a mostrar:", templateData);
+        
+        openPreviewModal(templateData);
+        
+        // CHIVATO 4: Para confirmar que la función para abrir el modal ha sido llamada
+        console.log("--- CHIVATO 4: Llamada a openPreviewModal realizada. ---");
+      }
+      // --- Fin de la lógica de depuración ---
+
+      if (button.classList.contains('button-edit')) openTemplateEditorModal(loadAndRenderTemplates, templateData);
+      if (button.classList.contains('button-duplicate')) handleDuplicateTemplateClick(recordId);
+      if (button.classList.contains('button-delete')) handleDeleteTemplateClick(recordId);
+
+    } catch (error) {
+      displayMessage(error.message, 'error');
+    } finally {
+      hideLoading();
+    }
+  });
 }
 
 // --- FUNCIONES PARA CONTROLAR EL FORMULARIO ---
@@ -177,6 +192,9 @@ function renderTemplatesList(templates) {
             <td>${template.templateName}</td>
             <td>${template.documentType}</td>
             <td class="actions-cell">
+              <button class="icon-button preview-template-btn" title="Previsualizar">
+                <i data-feather="eye"></i>
+              </button>
               <button class="icon-button button-edit" title="Editar"><i data-feather="edit-2"></i></button>
               <button class="icon-button button-duplicate" title="Duplicar"><i data-feather="copy"></i></button>
               <button class="icon-button button-delete" title="Eliminar"><i data-feather="trash-2"></i></button>

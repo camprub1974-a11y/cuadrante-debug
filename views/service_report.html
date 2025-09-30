@@ -1,81 +1,153 @@
-<div id="service-report-view" class="view-content">
-  <div class="report-header">
-    <button
-      id="back-to-reports-list-btn"
-      class="button button-icon button-secondary"
-      title="Volver"
-    >
-      <i data-feather="arrow-left"></i>
-    </button>
-    <div class="title-block">
-      <h2 id="report-view-title">Parte de Servicio</h2>
-    </div>
-    <div class="card-header-meta">
-      <span id="report-order-ref" class="reg-number"></span>
-      <span id="report-order-status" class="status-badge"></span>
-    </div>
-  </div>
+<style>
+    #stats-view-content .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .stats-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        width: 100%;
+        margin-top: 1rem;
+        align-items: flex-end;
+    }
+    .stats-filters .button-group {
+        display: flex;
+        gap: 0.5rem;
+    }
+    .stats-filters .date-range-group {
+        display: flex;
+        gap: 0.5rem;
+        margin-left: auto;
+    }
+    .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+    .kpi-card {
+        background-color: var(--color-background-inactive);
+        border: 1px solid var(--color-border);
+        border-radius: var(--border-radius-lg);
+        padding: 1rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+    }
+    .kpi-label {
+        font-size: 0.9rem;
+        color: var(--color-text-secondary);
+        margin-bottom: 0.5rem;
+    }
+    .kpi-value {
+        font-size: 2rem;
+        font-weight: 600;
+        color: var(--color-text);
+    }
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 1.5rem;
+    }
+    .chart-card {
+        border: 1px solid var(--color-border);
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+    }
+    .chart-card .card-header {
+        background-color: var(--color-background-inactive);
+        padding: 0.75rem 1.25rem;
+    }
+    .chart-card .card-header h3 {
+        margin: 0;
+        font-size: 1rem;
+    }
+    .chart-card .card-body {
+        padding: 1.25rem;
+    }
+</style>
 
-  <div class="card report-info-card">
+<div id="stats-view-content" class="view-content">
+  <div class="card">
+    <div class="card-header">
+      <h2><i data-feather="bar-chart-2"></i><span>Estadísticas y Rendimiento</span></h2>
+      
+      <div class="stats-filters">
+        <div class="button-group">
+            <button class="button button-secondary" data-range="last30days">Últimos 30 días</button>
+            <button class="button button-secondary active" data-range="current_month">Mes Actual</button>
+            <button class="button button-secondary" data-range="last_month">Mes Pasado</button>
+        </div>
+        <div class="date-range-group">
+            <div class="form-group">
+                <label for="stats-start-date">Desde</label>
+                <input type="date" id="stats-start-date">
+            </div>
+            <div class="form-group">
+                <label for="stats-end-date">Hasta</label>
+                <input type="date" id="stats-end-date">
+            </div>
+        </div>
+        <button id="generate-stats-btn" class="button button-primary">
+            <i data-feather="search"></i><span>Generar Informe</span>
+        </button>
+      </div>
+    </div>
+
     <div class="card-body">
-      <div class="report-details-grid">
-        <div><strong>Fecha:</strong> <span id="report-order-date"></span></div>
-        <div><strong>Turno:</strong> <span id="report-order-shift"></span></div>
-        <div><strong>Responsable:</strong> <span id="report-order-responsible"></span></div>
-        <div style="grid-column: 1 / -1">
-          <strong>Agentes:</strong> <span id="report-order-agents"></span>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <span class="kpi-label">Total Actuaciones</span>
+          <span class="kpi-value" id="kpi-total-actuaciones">0</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Partes de Servicio</span>
+          <span class="kpi-value" id="kpi-partes-creados">0</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Requerimientos Recibidos</span>
+          <span class="kpi-value" id="kpi-req-recibidos">0</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Tasa de Resolución</span>
+          <span class="kpi-value" id="kpi-tasa-resolucion">0%</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Documentos de Entrada</span>
+          <span class="kpi-value" id="kpi-doc-entradas">0</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Documentos de Salida</span>
+          <span class="kpi-value" id="kpi-doc-salidas">0</span>
+        </div>
+      </div>
+      
+      <div class="dashboard-grid">
+        <div class="chart-card">
+          <div class="card-header"><h3>Actuaciones por Categoría</h3></div>
+          <div class="card-body"><canvas id="categoriasChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="card-header"><h3>Gestión de Requerimientos</h3></div>
+          <div class="card-body"><canvas id="requerimientosChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="card-header"><h3>Documentos de Salida Generados</h3></div>
+          <div class="card-body"><canvas id="docSalidaChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="card-header"><h3>Documentos de Entrada Registrados</h3></div>
+          <div class="card-body"><canvas id="docEntradaChart"></canvas></div>
+        </div>
+        <div class="chart-card" style="grid-column: 1 / -1;"> <div class="card-header"><h3>Tendencia de Actuaciones Diarias</h3></div>
+            <div class="card-body"><canvas id="tendenciaChart"></canvas></div>
+        </div>
+        <div class="chart-card" style="grid-column: 1 / -1;"> <div class="card-header"><h3>Desglose Completo de Actuaciones</h3></div>
+            <div class="card-body">
+                <div id="stats-table-container" class="table-container"></div>
+            </div>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="card" id="report-instructions-card-container">
-    <div class="card-header">
-      <h4>Instrucciones Generales de la Orden</h4>
-    </div>
-    <div class="card-body">
-      <p id="report-order-instructions" style="white-space: pre-wrap; margin: 0"></p>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-header">
-      <h4>Tareas pendientes</h4>
-    </div>
-    <div class="card-body">
-      <div id="checklist-items-container" class="checklist-list"></div>
-    </div>
-  </div> 
-  
-  <div class="card" id="report-requerimientos-section"> 
-  <div class="card-header">
-    <h4>Requerimientos</h4>
-    <div class="actions-group">
-      <button id="add-requerimiento-btn" class="button button-secondary button-icon" title="Añadir Requerimiento">
-        <i data-feather="plus"></i>
-      </button>
-    </div>
-  </div>
-  <div class="card-body">
-    <div id="requerimientos-list-container" class="requerimientos-list"></div>
-  </div>
-</div>
-      
-  <div class="card" id="report-summary-card">
-    <div class="card-header">
-      <h4>Resumen de Actuaciones</h4>
-      <div class="actions-group">
-        <button id="edit-summary-btn" class="button button-secondary button-icon" title="Editar Resumen">
-          <i data-feather="edit"></i>
-        </button>
-      </div>
-    </div>
-    <div class="card-body">
-      <div id="summary-view-container" class="summary-grid">
-        <p class="empty-state-text">No hay actuaciones registradas en el resumen.</p>
-      </div>
-    </div>
-  </div>
-
-  <div id="report-actions-footer" class="report-actions-footer"></div>
 </div>

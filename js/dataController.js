@@ -535,33 +535,25 @@ export async function getRegistroById(recordId) {
 }
 
 export async function getRegistros(filters = {}) {
-  const registrosCol = collection(db, 'registros');
-  let queryConstraints = [where('status', '!=', 'eliminado')];
+  // Apuntamos a la Cloud Function 'getRegistros' del backend
+  const callable = httpsCallable(functions, 'getRegistros');
+  try {
+    const result = await callable(filters);
 
-  if (filters.type && filters.type !== 'all') {
-    queryConstraints.push(where('documentType', '==', filters.type));
-  }
-  if (filters.destinatario) {
-    queryConstraints.push(where('details.destinatario', '==', filters.destinatario));
-  }
-  if (filters.year && filters.year !== 'all') {
-    const yearInt = parseInt(filters.year);
-    const monthInt = filters.month && filters.month !== 'all' ? parseInt(filters.month) - 1 : null;
-    let startDate, endDate;
-    if (monthInt !== null) {
-      startDate = new Date(yearInt, monthInt, 1);
-      endDate = new Date(yearInt, monthInt + 1, 0, 23, 59, 59, 999);
+    if (result.data.success) {
+      // El backend devuelve fechas como texto, las convertimos de nuevo a objetos Date
+      return result.data.registros.map(reg => ({
+        ...reg,
+        createdAt: reg.createdAt ? new Date(reg.createdAt) : null,
+        fechaPresentacion: reg.fechaPresentacion ? new Date(reg.fechaPresentacion) : null
+      }));
     } else {
-      startDate = new Date(yearInt, 0, 1);
-      endDate = new Date(yearInt, 11, 31, 23, 59, 59, 999);
+      throw new Error('La función getRegistros del backend devolvió un error.');
     }
-    queryConstraints.push(where('createdAt', '>=', startDate), where('createdAt', '<=', endDate));
+  } catch (error) {
+    console.error("Error al llamar a la Cloud Function 'getRegistros':", error);
+    throw error;
   }
-
-  queryConstraints.push(orderBy('createdAt', 'desc'));
-  const q = query(registrosCol, ...queryConstraints);
-  const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 }
 
 export async function updateRegistro(recordId, data) {
@@ -1450,4 +1442,19 @@ export async function updateRequerimiento(reportId, requerimientoId, data) {
         console.error("Error al actualizar el requerimiento:", error);
         throw new Error("No se pudo actualizar el requerimiento.");
     }
+}
+
+export async function getDashboardStats(startDate, endDate) {
+  const callable = httpsCallable(functions, 'getDashboardStats');
+  try {
+    const result = await callable({ startDate, endDate });
+    if (result.data.success) {
+      return result.data;
+    } else {
+      throw new Error('La función de estadísticas devolvió un error.');
+    }
+  } catch (error) {
+    console.error("Error al llamar a la Cloud Function 'getDashboardStats':", error);
+    throw error;
+  }
 }

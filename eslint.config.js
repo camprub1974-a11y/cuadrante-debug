@@ -1,35 +1,15 @@
-import globals from 'globals';
-import js from '@eslint/js';
-import pluginSecurity from 'eslint-plugin-security';
-import eslintConfigPrettier from 'eslint-config-prettier';
+import js from "@eslint/js";
+import globals from "globals";
+import json from "@eslint/json";
+import markdown from "@eslint/markdown";
+import css from "@eslint/css";
+import { defineConfig } from "eslint/config";
 
-export default [
-  // 1. Configuración global para todos los archivos .js
-  {
-    languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-      globals: {
-        ...globals.browser, // Entiende las variables del navegador (window, document, etc.)
-        ...globals.node, // Entiende las variables de Node.js (para archivos .cjs)
-      },
-    },
-  },
-
-  // 2. Carga las reglas recomendadas por ESLint
-  js.configs.recommended,
-
-  // 3. Carga las reglas recomendadas del plugin de seguridad
-  pluginSecurity.configs.recommended,
-
-  // 4. Desactiva reglas que chocan con Prettier (siempre debe ser la última)
-  eslintConfigPrettier,
-
-  // 5. Tus reglas personalizadas (puedes añadir más si quieres)
-  {
-    rules: {
-      'no-unused-vars': 'warn',
-      'no-console': 'warn',
-    },
-  },
-];
+export default defineConfig([
+  { files: ["**/*.{js,mjs,cjs}"], plugins: { js }, extends: ["js/recommended"], languageOptions: { globals: {...globals.browser, ...globals.node} } },
+  { files: ["**/*.json"], plugins: { json }, language: "json/json", extends: ["json/recommended"] },
+  { files: ["**/*.jsonc"], plugins: { json }, language: "json/jsonc", extends: ["json/recommended"] },
+  { files: ["**/*.json5"], plugins: { json }, language: "json/json5", extends: ["json/recommended"] },
+  { files: ["**/*.md"], plugins: { markdown }, language: "markdown/gfm", extends: ["markdown/recommended"] },
+  { files: ["**/*.css"], plugins: { css }, language: "css/css", extends: ["css/recommended"] },
+]);

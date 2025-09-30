@@ -10,6 +10,16 @@ import {
 import { availableAgents, currentUser } from '../state.js';
 import { resizeImage } from '../utils.js';
 
+// ===================================================================
+// == INICIO DE LA CORRECCIÓN: AÑADIMOS EL HELPER QUE FALTABA       ==
+// ===================================================================
+Handlebars.registerHelper('eq', function (a, b) {
+  return a === b;
+});
+// ===================================================================
+// == FIN DE LA CORRECCIÓN                                          ==
+// ===================================================================
+
 // --- VARIABLES GLOBALES DEL MÓDULO ---
 let modalClone;
 let modalTemplate;
@@ -82,182 +92,181 @@ function getFormDefinition(template) {
 }
 
 
-// --- INICIALIZACIÓN DEL MÓDULO ---
+// --- Inicialización ---
 export function initializeRegistroModal() {
     modalTemplate = document.getElementById('template-registro-modal');
     if (!modalTemplate) {
-        console.error('Error Crítico: El <template> con id "template-registro-modal" no fue encontrado en index.html.');
+        console.error('Error Crítico: El <template> con id "template-registro-modal" no fue encontrado.');
     }
 }
 
-// --- FUNCIÓN PRINCIPAL DE APERTURA DE MODAL (UNIFICADA) ---
-// REEMPLAZA ESTA FUNCIÓN COMPLETA
+// --- Apertura del Modal ---
 export function openRegistroModal(options = {}) {
-  const { direction = 'salida', callback, dataForEdit = null } = options;
-  onSaveSuccessCallback = callback;
-  recordData = dataForEdit;
+    const { direction = 'salida', callback, dataForEdit = null } = options;
+    onSaveSuccessCallback = callback;
 
-  if (!modalTemplate) {
-    console.error('El template del modal no está inicializado.');
-    return;
-  }
-  
-  modalClone = modalTemplate.content.cloneNode(true).firstElementChild;
-  document.body.appendChild(modalClone);
-  injectWizardStyles();
+    if (!modalTemplate) return;
+    
+    modalClone = modalTemplate.content.cloneNode(true).firstElementChild;
+    document.body.appendChild(modalClone);
+    injectWizardStyles();
 
-  // Obtención de elementos del DOM
-  const modalTitle = modalClone.querySelector('#registro-modal-title');
-  const deleteBtn = modalClone.querySelector('#delete-registro-btn');
-  const typeSelect = modalClone.querySelector('#registro-type-select');
-  const dynamicFormContainer = modalClone.querySelector('#registro-dynamic-form-container');
-  const previewContainer = modalClone.querySelector('#registro-preview-container');
-  
-  // --- INICIO DE LA CORRECCIÓN ---
-  // Nos aseguramos de que el campo oculto directionInput exista y tenga valor
-  const directionInput = modalClone.querySelector('#registro-direction');
-  const finalDirection = dataForEdit ? (dataForEdit.direction || 'salida') : direction;
-  if(directionInput) {
-    directionInput.value = finalDirection; // ✅ LÍNEA CLAVE
-  }
-  // --- FIN DE LA CORRECCIÓN ---
+    const directionInput = modalClone.querySelector('#registro-direction');
+    if(directionInput) directionInput.value = direction;
 
-  // Lógica de visualización (se mantiene igual)
-  if (finalDirection === 'entrada') {
-    // ... tu lógica para 'entrada' ...
-  } else { // 'salida'
-    modalTitle.textContent = 'Crear Documento de Salida';
-    // ✅ CORRECCIÓN: Generamos aquí el primer paso del formulario de salida
-    dynamicFormContainer.innerHTML = `
-      <div class="form-group">
-        <label class="form-label" for="registro-type-select">Tipo de Documento</label>
-        <select id="registro-type-select" class="selector" required>
-          <option value="">-- Selecciona un tipo --</option>
-          <option value="informe">Informe</option>
-          <option value="acta">Acta</option>
-          <option value="atestado">Atestado</option>
-          <option value="oficio">Oficio</option>
-          <option value="estadillo">Estadillo</option>
-        </select>
-      </div>`;
-  }
+    // Lógica para modo Edición vs Creación
+    if (dataForEdit) {
+        editingRecordId = dataForEdit.id;
+        // ... (tu lógica para rellenar en modo edición)
+    } else {
+        editingRecordId = null;
+    }
 
-  // Reseteo del estado del wizard
-  currentTemplate = null;
-  templatesCache = [];
-  currentStep = 1;
-  totalSteps = 0;
-  fieldOrderGroups = [];
-  allFields = [];
-  
-  // Llamamos a setupEventListeners DESPUÉS de haber modificado el DOM
-  setupEventListeners(); 
-
-  if (dataForEdit) {
-    // ... tu lógica para editar ...
-  } else {
-    editingRecordId = null;
-    if (deleteBtn) deleteBtn.classList.add('hidden');
-  }
-
-  setTimeout(() => {
-    modalClone.classList.remove('hidden');
-    if (window.feather) feather.replace();
-  }, 10);
+    setupEventListeners();
+    
+    // Mostramos el modal y el primer paso (selector de tipo)
+    modalClone.querySelector('#type-select-step').classList.remove('hidden');
+    modalClone.querySelector('#template-select-step').classList.add('hidden');
+    
+    setTimeout(() => {
+        modalClone.classList.remove('hidden');
+        if (window.feather) feather.replace();
+    }, 10);
 }
 
+
 // --- SETUP DE EVENTOS ---
-// 1. REEMPLAZA ESTA FUNCIÓN
 function setupEventListeners() {
     const form = modalClone.querySelector('#registro-form');
-    const dynamicFormContainer = modalClone.querySelector('#registro-dynamic-form-container');
+    // Si el formulario no existe o los listeners ya están añadidos, salimos de la función.
+    if (!form || form.dataset.listenerAttached) return;
+
     const typeSelect = modalClone.querySelector('#registro-type-select');
     const closeButtons = modalClone.querySelectorAll('.close-button');
     const deleteBtn = modalClone.querySelector('#delete-registro-btn');
-    
-    if (!form || form.dataset.listenerAttached === 'true') return;
+    const dynamicFormContainer = modalClone.querySelector('#registro-dynamic-form-container');
 
+    // Listener para el envío principal del formulario.
     form.addEventListener('submit', handleFormSubmit);
-    
-    // --- LISTENER MODIFICADO CON DEPURACIÓN ---
-    typeSelect.addEventListener('change', () => {
-            handleTypeChange(null);
-    });
-    
+
+    // Listener para el cambio en el selector de "Tipo de Documento".
+    // La lógica de la versión anterior se mantiene, pero usamos una función dedicada.
+    typeSelect.addEventListener('change', () => handleTypeChange());
+
+    // Listeners para todos los botones de cerrar el modal.
     closeButtons.forEach(btn => btn.addEventListener('click', closeAndDestroyModal));
-    
+
+    // Listener para el botón de eliminar, solo si el usuario es administrador.
     if (deleteBtn && currentUser.get()?.role === 'admin') {
         deleteBtn.addEventListener('click', handleDelete);
     }
-    
-    dynamicFormContainer.addEventListener('click', (event) => {
-        const uploadButton = event.target.closest('.upload-image-btn');
-        const addButton = event.target.closest('.add-repeater-item-btn');
-        const deleteButton = event.target.closest('.delete-repeater-item-btn');
 
-        if (uploadButton) handleImageUpload(uploadButton);
-        if (addButton) addRepeaterItem(addButton.dataset.repeaterId);
-        if (deleteButton) {
-            const itemToDelete = deleteButton.closest('.repeater-item');
-            if (itemToDelete) itemToDelete.remove();
+    // Un único listener delegado para todas las acciones dinámicas dentro del formulario.
+    // Esto es más eficiente que añadir listeners a cada botón individualmente.
+    dynamicFormContainer.addEventListener('click', (event) => {
+        const button = event.target.closest('button');
+        if (!button) return;
+
+        // Lógica para el botón "Volver".
+        if (button.id === 'back-to-type-btn') {
+            const typeSelectStep = modalClone.querySelector('#type-select-step');
+            const templateSelectStep = modalClone.querySelector('#template-select-step');
+            
+            // Usamos las clases 'hidden' para alternar la visibilidad de los pasos.
+            typeSelectStep.classList.remove('hidden');
+            templateSelectStep.classList.add('hidden');
+            templateSelectStep.innerHTML = ''; // Limpiamos el contenido del paso 2.
+
+            currentTemplate = null;
+            updatePreview();
+            return;
+        }
+
+        // Lógica para subir imágenes.
+        if (button.classList.contains('upload-image-btn')) {
+            handleImageUpload(button);
+        }
+
+        // Lógica para añadir un elemento a un "repeater".
+        if (button.classList.contains('add-repeater-item-btn')) {
+            addRepeaterItem(button.dataset.repeaterId);
+        }
+
+        // Lógica para eliminar un elemento de un "repeater".
+        if (button.classList.contains('delete-repeater-item-btn')) {
+            const itemToDelete = button.closest('.repeater-item');
+            if (itemToDelete) {
+                itemToDelete.remove();
+                updatePreview(); // Actualizamos la vista previa después de borrar.
+            }
         }
     });
 
+    // Listener para actualizar la vista previa en tiempo real con cada cambio en el input.
     dynamicFormContainer.addEventListener('input', updatePreview);
+    
+    // Marcamos el formulario para evitar que los listeners se añadan de nuevo.
     form.dataset.listenerAttached = 'true';
 }
 
-
-// --- MANEJO DE LÓGICA INTERNA DEL MODAL ---
-// 2. REEMPLAZA TAMBIÉN ESTA FUNCIÓN
-async function handleTypeChange(dataForEdit = null) {
-  console.log("2. Ejecutando handleTypeChange..."); // CHIVATO 2
-  
-  const typeSelect = modalClone.querySelector('#registro-type-select');
-  const dynamicFormContainer = modalClone.querySelector('#registro-dynamic-form-container');
-  const documentType = typeSelect.value;
-  
-  console.log(`3. Tipo de documento seleccionado: '${documentType}'`); // CHIVATO 3
-
-  dynamicFormContainer.innerHTML = '';
-  currentTemplate = null;
-  updatePreview();
-  if (!documentType) {
-    console.log("   -> No hay tipo seleccionado. Proceso detenido.");
-    return;
-  }
-
-  showLoading('Cargando plantillas...');
-  try {
-    const templates = await getTemplatesByType(documentType);
-    templatesCache = templates;
-    console.log("4. Plantillas encontradas para este tipo:", templates); // CHIVATO 4
+// --- LÓGICA DE FLUJO DEL FORMULARIO ---
+async function handleTypeChange() {
+    const typeSelect = modalClone.querySelector('#registro-type-select');
+    const typeStepContainer = modalClone.querySelector('#type-select-step');
+    const templateStepContainer = modalClone.querySelector('#template-select-step');
+    const documentType = typeSelect.value;
     
-    if (templates.length > 0) {
-      console.log("   -> Se encontraron plantillas. Intentando mostrar el selector."); // CHIVATO 5
-      let opts = '<option value="">-- Elige una plantilla --</option>' + templates.map((t) => `<option value="${t.id}">${t.templateName}</option>`).join('');
-      dynamicFormContainer.innerHTML = `<div class="form-group"><label class="form-label" for="template-select">Usar Plantilla</label><select id="template-select" class="selector">${opts}</select></div><div id="template-fields-container"></div>`;
-      
-      const templateSelect = dynamicFormContainer.querySelector('#template-select');
-      templateSelect.addEventListener('change', () => {
-        currentTemplate = templatesCache.find((t) => t.id === templateSelect.value) || null;
-        renderFormFromSchema(null);
-      });
+    if (!documentType) return;
 
-      if (dataForEdit?.templateUsed) {
-        templateSelect.value = dataForEdit.templateUsed;
-        currentTemplate = templatesCache.find((t) => t.id === dataForGredit.templateUsed);
-        if (currentTemplate) renderFormFromSchema(dataForEdit);
-      }
-    } else {
-      dynamicFormContainer.innerHTML = '<p class="info-message">No hay plantillas disponibles para este tipo de documento.</p>';
+    typeStepContainer.classList.add('hidden');
+    templateStepContainer.classList.remove('hidden');
+    
+    currentTemplate = null;
+    updatePreview();
+
+    showLoading('Cargando plantillas...');
+    try {
+        const templates = await getTemplatesByType(documentType);
+        templatesCache = templates;
+        
+        let step2Html = '';
+        if (templates.length > 0) {
+            let opts = '<option value="">-- Elige una plantilla --</option>' + templates.map((t) => `<option value="${t.id}">${t.templateName}</option>`).join('');
+            step2Html = `
+                <div class="form-group">
+                    <label class="form-label" for="template-select">Usar Plantilla</label>
+                    <select id="template-select" class="selector">${opts}</select>
+                </div>
+                <div id="template-fields-container"></div>
+            `;
+        } else {
+            step2Html = '<p class="info-message">No hay plantillas para este tipo.</p>';
+        }
+
+        step2Html += `
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--color-border);">
+                <button type="button" id="back-to-type-btn" class="button button-secondary">
+                    <i data-feather="arrow-left"></i>
+                    <span>Volver a Tipo de Documento</span>
+                </button>
+            </div>
+        `;
+
+        templateStepContainer.innerHTML = step2Html;
+        
+        const templateSelect = templateStepContainer.querySelector('#template-select');
+        if (templateSelect) {
+            templateSelect.addEventListener('change', () => {
+                currentTemplate = templatesCache.find((t) => t.id === templateSelect.value) || null;
+                renderFormFromSchema();
+            });
+        }
+    } catch (error) {
+        displayMessage('Error al cargar las plantillas.', 'error');
+    } finally {
+        hideLoading();
+        if (window.feather) feather.replace();
     }
-  } catch (error) {
-    console.error("ERROR en handleTypeChange:", error); // CHIVATO DE ERRORES
-    displayMessage('Error al cargar las plantillas.', 'error');
-  } finally {
-    hideLoading();
-  }
 }
 
 function renderFormFromSchema(dataForEdit = null) {
@@ -408,26 +417,40 @@ function addRepeaterItem(repeaterId, data = {}) {
     const key = field.id;
     const value = data[key] !== undefined ? data[key] : (field.default !== undefined ? field.default : '');
     const required = field.optional === false;
+    
+    // --- INICIO DE LA CORRECCIÓN ---
+    itemHtml += `<div class="form-group ${required ? 'required' : ''}">`;
+    itemHtml += `<label class="form-label">${field.label}</label>`;
 
-    if (field.type === 'image') {
-      const uniqueIdPrefix = `${repeaterId}-${itemIndex}-${key}`;
-      itemHtml += `
-        <div class="form-group ${required ? 'required' : ''}">
-          <label class="form-label">${field.label}</label>
+    switch (field.type) {
+      case 'select':
+        itemHtml += `<select class="selector" data-key="${key}" ${required ? 'required' : ''}>`;
+        itemHtml += '<option value="">-- Selecciona --</option>';
+        (field.options || []).forEach(opt => {
+          itemHtml += `<option value="${opt}" ${opt === value ? 'selected' : ''}>${opt}</option>`;
+        });
+        itemHtml += `</select>`;
+        break;
+
+      case 'image':
+        const uniqueIdPrefix = `${repeaterId}-${itemIndex}-${key}`;
+        itemHtml += `
           <div class="image-upload-container">
             <img id="preview-${uniqueIdPrefix}" src="${value || 'assets/placeholder-image.png'}" alt="Vista previa" class="image-preview">
             <input type="hidden" id="field-${uniqueIdPrefix}" data-key="${key}" value="${value || ''}">
             <button type="button" class="button button-secondary upload-image-btn" data-target-prefix="${uniqueIdPrefix}" data-key="${key}">
               <i data-feather="upload"></i><span>Subir Imagen</span>
             </button>
-          </div>
-        </div>`;
-    } else {
-      itemHtml += `<div class="form-group ${required ? 'required' : ''}">
-        <label class="form-label">${field.label}</label>
-        <input type="${field.type || 'text'}" data-key="${key}" value="${value || ''}" ${required ? 'required' : ''}>
-      </div>`;
+          </div>`;
+        break;
+
+      default: // Para 'text', 'number', 'date', 'time', etc.
+        itemHtml += `<input type="${field.type || 'text'}" data-key="${key}" value="${value || ''}" ${required ? 'required' : ''}>`;
+        break;
     }
+
+    itemHtml += `</div>`;
+    // --- FIN DE LA CORRECCIÓN ---
   });
 
   itemDiv.innerHTML = itemHtml;

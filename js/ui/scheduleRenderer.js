@@ -6,6 +6,8 @@ import { openShiftModal } from './shiftModal.js';
 import { formatDate, parseISO } from '../utils.js';
 import { openProposeChangeModal } from './proposeChangeModal.js';
 import { getAllShiftTypes } from '../dataController.js';
+import { Calendar } from 'fullcalendar';
+import 'fullcalendar'; // Importa los estilos necesarios
 
 let allShiftTypesCache = null;
 

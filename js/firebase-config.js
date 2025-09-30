@@ -8,14 +8,16 @@ import { getFunctions } from 'firebase/functions'; // ✅ AÑADIDO: Importa getF
 
 // Tu configuración de Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", // Clave de API falsa
-  authDomain: "proyecto-falso-12345.firebaseapp.com", // Dominio falso
-  projectId: "proyecto-falso-12345", // ID de proyecto falso
-  storageBucket: "proyecto-falso-12345.appspot.com", // Bucket de almacenamiento falso
-  messagingSenderId: "123456789012", // ID de remitente falso
-  appId: "1:123456789012:web:12345abcde67890fgh123", // ID de aplicación falsa
-  measurementId: "G-XXXXXXXXXX" // ID de medición falsa
+  // CORRECCIÓN: Usar solo una apiKey (la correcta)
+  apiKey: 'AIzaSyC3hw8eM7QfwB3mvDOeKlu5PTYR53wxm-c',
+  authDomain: 'cuadrante-81ca7.firebaseapp.com',
+  projectId: 'cuadrante-81ca7',
+  storageBucket: 'cuadrante-81ca7.firebasestorage.app',
+  messagingSenderId: '131147165591',
+  appId: '1:131147165591:web:dee8b8d512f33ddd2a1ed2',
+  measurementId: 'G-63J8PECHRE',
 };
+
 // Inicializa Firebase
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);

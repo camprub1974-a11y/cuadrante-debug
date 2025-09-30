@@ -7,6 +7,8 @@ import {
   // --- MODIFICACIÓN: Ya no necesitamos la subida de imágenes desde aquí ---
   // uploadTemplateImage, 
 } from '../dataController.js';
+import Quill from 'quill';
+import 'quill/dist/quill.snow.css'; // Importa los estilos del editor
 
 // --- Variables del Módulo ---
 let modal, form, modalTitle, templateNameInput, templateTypeSelect;
